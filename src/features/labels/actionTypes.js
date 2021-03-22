@@ -1,0 +1,9 @@
+export const LABEL_ADDED = "labels/labelAdded";
+export const LABEL_REMOVED = "labels/labelRemoved";
+export const LABEL_EDITED = "labels/labelEdited";
+export const LABELS_LOADING = "labels/labelsLoading";
+export const LABELS_LOADED = "labels/labelsLoaded";
+export const LABEL_FILTERED = "labels/labelFiltered";
+export const FILTER_ADDED = "labels/filterAdded";
+export const FILTER_REMOVED = "labels/filterRemoved";
+export const FILTERS_CLEARED = "labels/filtersCleared";

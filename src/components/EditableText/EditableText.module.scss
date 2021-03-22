@@ -1,0 +1,33 @@
+@import "../../styles/utilities/module";
+
+.editable_text {
+  font-size: 0.75rem;
+  color: $dark-color;
+  padding: 0.25rem;
+  border-radius: 2px;
+  background-color: transparent;
+  border: none;
+
+  &:active,
+  &:focus {
+    background-color: white;
+  }
+  &:hover {
+    box-shadow: 0 0 4px $primary-color;
+  }
+
+  &_hd {
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0;
+    &:focus {
+      padding: 0.25rem;
+    }
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .editable_text {
+    overflow: hidden;
+  }
+}

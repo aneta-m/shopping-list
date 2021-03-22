@@ -1,0 +1,13 @@
+@import "../../styles/utilities/module";
+
+.flex_list_item {
+  display: flex;
+  align-items: center;
+  transition: 0.25s;
+  &:hover {
+    background-color: rgb(247, 245, 245);
+  }
+  :first-child {
+    padding: 1rem 0.5rem;
+  }
+}

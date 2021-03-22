@@ -1,0 +1,33 @@
+@import "../../styles/utilities/module";
+
+.label {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid white;
+  border-radius: 100%;
+  box-shadow: 0 0 6px rgb(235, 233, 233);
+  outline: none;
+  transition: 0.25s;
+  z-index: 1;
+  position: relative;
+
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 0 6px $primary-color;
+  }
+}
+
+.input {
+  opacity: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100%;
+  position: relative;
+  border: 0;
+  color: transparent;
+  border-image-width: 0;
+  font-size: 0;
+  z-index: -1;
+}

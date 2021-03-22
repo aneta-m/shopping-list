@@ -1,0 +1,17 @@
+
+dokończyć podział lists i current list slice, 
+zrobić loadery osobne do wszystkiego
+
+ostylować lists na mobile
+dorobić modal na remove
+___________________________________________________________________________
+
+napisać funkcje (po stronie clienta):
+sort aplhabetically,
+sort by category,
+filter by label,
+
+
+stworzyć add new 
+stworzyć podstronę lists
+

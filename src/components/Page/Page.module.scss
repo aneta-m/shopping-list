@@ -1,0 +1,22 @@
+@import "../../styles/utilities/module";
+
+.page {
+  max-width: 1200px;
+  margin: auto;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    grid-gap: 1rem;
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .page {
+    .grid {
+      grid-template-rows: auto auto 1fr auto;
+    }
+  }
+}

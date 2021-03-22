@@ -1,0 +1,15 @@
+@import "../../styles/utilities/module";
+
+.shopping_list {
+  padding: 1rem;
+  max-width: 550px;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .shopping_list {
+    border-radius: 10px;
+    height: 100%;
+    // margin: auto;
+    background-color: white;
+  }
+}

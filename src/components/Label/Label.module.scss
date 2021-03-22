@@ -1,0 +1,58 @@
+@import "../../styles/utilities/module";
+
+.label {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid white;
+  border-radius: 100%;
+  box-shadow: 0 0 6px rgb(235, 233, 233);
+  outline: none;
+  transition: 0.25s;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 0 6px $primary-color;
+  }
+}
+
+.text_label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 0.25rem;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+
+  &:hover {
+    .text {
+      background-color: $secondary-color;
+    }
+    .label {
+      box-shadow: 0 0 6px $primary-color;
+    }
+  }
+}
+
+.text {
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  transition: 0.25s;
+}
+
+.checked {
+  &::after {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    content: "";
+    border-right: 2px solid green;
+    border-bottom: 2px solid green;
+    height: 8px;
+    width: 4px;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "bakery & bread",
+    "color": "#B49FDC"
+  },
+  {
+    "id": 2,
+    "title": "meal solutions, grains & pasta",
+    "color": "#C5EBFE"
+  },
+  {
+    "id": 3,
+    "title": "dairy",
+    "color": "#FEFD97"
+  },
+  {
+    "id": 4,
+    "title": "fruits & vegetables",
+    "color": "#A5F8CE"
+  },
+  {
+    "id": 5,
+    "title": "household essentials",
+    "color": "#FEC9A7"
+  },
+  {
+    "id": 6,
+    "title": "condiments, sauces & spices",
+    "color": "#F197C0"
+  },
+  {
+    "id": 7,
+    "title": "sweets",
+    "color": "#8B6C60"
+  },
+  {
+    "id": 8,
+    "color": "#FFF5F4",
+    "title": "drinks"
+  },
+  {
+    "id": 9,
+    "title": "animal food",
+    "color": "#9DA0AC"
+  }
+]

@@ -1,0 +1,22 @@
+@import "../../styles/utilities/module";
+.main {
+  grid-column: 1/-1;
+  &_type_lists {
+    padding: 0 1rem 2.5rem;
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .main {
+    grid-column: 2/-1;
+    grid-row: 2/-2;
+
+    &_type_lists {
+      width: 60%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 1rem;
+      grid-column: 1/-1;
+    }
+  }
+}

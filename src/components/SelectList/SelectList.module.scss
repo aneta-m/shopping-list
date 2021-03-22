@@ -1,0 +1,38 @@
+@import "../../styles/utilities/module";
+
+.option {
+  display: block;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  padding-right: 1.5rem;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  text-align: left;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $dark-color;
+  }
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &_active {
+    &:after {
+      display: block;
+      content: "";
+      position: absolute;
+      padding-left: 0.25rem;
+      right: 0;
+      bottom: 50%;
+      width: 2px;
+      height: 10px;
+      // background-color: $warning-color;
+      border-bottom: 3px solid $warning-color;
+      border-right: 3px solid $warning-color;
+      transform: rotate(45deg) translateY(50%);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import "../../styles/utilities/module";
+.labels_list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .labels-list {
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,115 @@
+[
+    {
+        "id": 123,
+        "title": "Lista do biedronki",
+        "date": "2020-01-23T18:25:43.511Z",
+        "list": [
+            {
+                "id": 1,
+                "text": "bread",
+                "labelId": 1
+            },
+            {
+                "id": 2,
+                "text": "croissant",
+                "labelId": 1
+            },
+            {
+                "id": 3,
+                "text": "cottage cheese",
+                "labelId": 3
+            },
+            {
+                "id": 4,
+                "text": "soap",
+                "labelId": 2
+            }
+        ]
+    },
+    {
+        "id": 124,
+        "title": "Lista do rossmanna",
+        "date": "2020-01-24T18:25:43.511Z",
+        "list": [
+            {
+                "id": 1,
+                "text": "toothpaste",
+                "labelId": 2
+            },
+            {
+                "id": 2,
+                "text": "detergent",
+                "labelId": 5
+            },
+            {
+                "id": 3,
+                "text": "dark chocolate",
+                "labelId": 7
+            },
+            {
+                "id": 4,
+                "text": "toilet paper",
+                "labelId": 5
+            }
+        ]
+    },
+    {
+        "id": 125,
+        "title": "Lista do auchan",
+        "date": "2020-01-23T18:25:43.511Z",
+        "list": [
+            {
+                "id": 1,
+                "text": "dish soap",
+                "labelId": 5
+            },
+            {
+                "id": 2,
+                "text": "tomatoes",
+                "labelId": 4
+            },
+            {
+                "id": 3,
+                "text": "olive oil",
+                "labelId": 6
+            },
+            {
+                "id": 4,
+                "text": "canned tomatoes",
+                "labelId": 6
+            },
+            {
+                "id": 5,
+                "text": "pasta",
+                "labelId": 2
+            },
+            {
+                "id": 6,
+                "text": "flour",
+                "labelId": 2
+            }
+        ]
+    },
+    {
+        "id": 126,
+        "title": "Lista do warzywniaka",
+        "date": "2020-01-27T18:25:43.511Z",
+        "list": [
+            {
+                "id": 1,
+                "text": "cabbage",
+                "labelId": 4
+            },
+            {
+                "id": 2,
+                "text": "potatoes",
+                "labelId": 4
+            },
+            {
+                "id": 3,
+                "text": "carrots",
+                "labelId": 4
+            }
+        ]
+    }
+]

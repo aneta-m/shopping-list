@@ -1,0 +1,46 @@
+@import "../../styles/utilities/module";
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.header_btns {
+  margin: auto 0 auto auto;
+}
+
+.header_btn {
+  font-size: 1.5rem;
+  padding: 0 0.75rem;
+}
+
+.small_text {
+  color: rgb(131, 130, 130);
+  font-size: 0.75rem;
+  font-weight: 100;
+  padding-top: 0.5rem;
+  &:last-child {
+    padding-bottom: 1rem;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: white;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .header {
+    display: block;
+  }
+  .header_btns {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

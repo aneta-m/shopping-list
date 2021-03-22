@@ -1,0 +1,13 @@
+@import "../../styles/utilities/module";
+
+.nav {
+  display: none;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .nav {
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}

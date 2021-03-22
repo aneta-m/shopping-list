@@ -1,0 +1,37 @@
+@import "../../styles/utilities/module";
+
+.logo {
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+  background-color: $primary-color;
+  border-bottom-right-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    display: none;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: rgb(250, 237, 241);
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .logo {
+    width: 8rem;
+    height: 8rem;
+    &__text {
+      display: block;
+      font-family: $accent-font;
+      font-weight: bold;
+      color: $dark-color;
+    }
+    &__icon {
+      padding-top: 0.75rem;
+    }
+  }
+}

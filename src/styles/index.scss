@@ -1,0 +1,73 @@
+@import "./utilities/module";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: $primary-font;
+  color: $dark-color;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.bg {
+  background-image: radial-gradient(#d4b2c6 1px, transparent 1px),
+    radial-gradient(#c0c3fa 1px, #e5e5f7 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+
+.mr-05 {
+  margin-right: 0.5rem;
+}
+
+.mx-05 {
+  margin: 0 0.5rem;
+}
+
+.my-1 {
+  margin: 1rem 0;
+}
+
+.py-025 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-1 {
+  padding: 1rem 0;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.font {
+  &_small {
+    font-size: 0.75rem;
+    color: gray;
+  }
+  &_l {
+    font-size: 1.5rem;
+  }
+  &_xl {
+    font-size: 2rem;
+  }
+}

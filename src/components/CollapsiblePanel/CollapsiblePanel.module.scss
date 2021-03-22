@@ -1,0 +1,122 @@
+@import "../../styles/utilities/module";
+.collapsible_panel {
+  min-height: 100vh;
+  background-color: white;
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  z-index: 1;
+
+  &.on_enter {
+    right: 0;
+    opacity: 1;
+    animation-name: slide-in;
+    animation-duration: 0.35s;
+    animation-timing-function: ease-in-out;
+  }
+
+  &.on_exit {
+    right: -100vw;
+    opacity: 0;
+    animation-duration: 0.35s;
+    animation-name: slide-out;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes slide-in {
+    from {
+      right: -100vw;
+      opacity: 0;
+    }
+    to {
+      right: 0;
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out {
+    from {
+      right: 0;
+      opacity: 1;
+    }
+    to {
+      right: -100vw;
+      opacity: 0;
+    }
+  }
+
+  .close {
+    background-color: white;
+    width: 100%;
+    .btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: auto;
+      padding: 0 1rem;
+    }
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .close {
+    border-radius: 10px;
+  }
+}
+@media (min-width: $mobile-breakpoint) {
+  .collapsible_panel {
+    min-height: 0;
+    position: absolute;
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .close {
+    border-radius: 10px;
+    .btn {
+    }
+  }
+
+  .content {
+    padding-top: 1rem;
+  }
+
+  &.on_enter {
+    left: 0;
+    opacity: 1;
+    animation-name: slide-in;
+    animation-duration: 0.35s;
+    animation-timing-function: ease-in-out;
+  }
+
+  &.on_exit {
+    left: -100%;
+    opacity: 0;
+    animation-duration: 0.35s;
+    animation-name: slide-out;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes slide-in {
+    from {
+      left: -100%;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out {
+    from {
+      left: 0;
+      opacity: 1;
+    }
+    to {
+      left: -100%;
+      opacity: 0;
+    }
+  }
+}

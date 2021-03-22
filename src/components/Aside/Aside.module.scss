@@ -1,0 +1,17 @@
+.aside {
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  grid-row: 2/-2;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    right: 100%;
+    bottom: 0;
+    background-color: white;
+  }
+}
