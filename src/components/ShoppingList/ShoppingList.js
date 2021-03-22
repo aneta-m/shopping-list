@@ -7,11 +7,11 @@ import EditableListItem from "../EditableListItem/EditableListItem";
 import EmptyListItem from "../EmptyListItem/EmptyListItem";
 import EditableText from "../EditableText/EditableText";
 import {
-  editListTitle,
   getCurrentList,
   getStatus,
   selectFilteredList,
-} from "../../features/lists/listsSlice";
+} from "../../features/currentList/currentListSlice";
+import { editListTitle } from "../../features/lists/listsSlice";
 
 const ShoppingList = ({ toggleFilter, isMobile }) => {
   const list = useSelector(getCurrentList);

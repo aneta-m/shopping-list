@@ -1,16 +1,16 @@
 import { createSelector } from "reselect";
 import axios from "axios";
 import {
-  LIST_TITLE_EDITED,
   LIST_ITEM_ADDED,
   LIST_ITEM_REMOVED,
   LIST_ITEM_EDITED,
+  LIST_TITLE_EDITED,
   LIST_LOADING,
   LIST_LOADED,
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
-import { IDLE, PROCESSING, FAILED } from "./statusConstants";
+import { IDLE, PROCESSING, FAILED } from "../lists/statusConstants";
 import { selectFilters } from "../labels/labelsSlice";
 
 const initialState = {
@@ -20,32 +20,6 @@ const initialState = {
 
 const currentListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LIST_ADDED: {
-      const { id, date, title } = action.payload;
-      return {
-        ...state,
-        lists: {
-          ...state.lists,
-          [id]: { id, date, title },
-        },
-        currentList: { id, date, title, list: [] },
-      };
-    }
-    case LIST_TITLE_EDITED: {
-      const { id, title } = action.payload;
-      return {
-        ...state,
-        lists: {
-          ...state.lists,
-          [id]: { ...state.lists[id], title: title },
-        },
-        currentList: {
-          ...state.currentList,
-          title: title,
-        },
-      };
-    }
-
     case LIST_ITEM_ADDED: {
       return {
         ...state,
@@ -87,6 +61,13 @@ const currentListReducer = (state = initialState, action) => {
       };
     }
 
+    case LIST_TITLE_EDITED: {
+      return {
+        ...state,
+        currentList: { ...state.currentList, title: action.payload },
+      };
+    }
+
     case LIST_LOADING: {
       return {
         ...state,
@@ -121,10 +102,6 @@ const currentListReducer = (state = initialState, action) => {
 };
 export default currentListReducer;
 
-export const listTitleEdited = (id, title) => ({
-  type: LIST_TITLE_EDITED,
-  payload: { id, title },
-});
 export const listItemAdded = (item) => ({
   type: LIST_ITEM_ADDED,
   payload: item,
@@ -136,6 +113,11 @@ export const listItemRemoved = (itemId) => ({
 export const listItemEdited = (id, change) => ({
   type: LIST_ITEM_EDITED,
   payload: { id, change },
+});
+
+export const currentListTitleEdited = (title) => ({
+  type: LIST_TITLE_EDITED,
+  payload: title,
 });
 export const listLoading = () => ({ type: LIST_LOADING });
 export const listLoaded = (list) => ({ type: LIST_LOADED, payload: list });
@@ -151,16 +133,6 @@ export const fetchList = (id) => async (dispatch) => {
     dispatch(listLoaded(response.data));
   } else {
     dispatch(requestFailed());
-  }
-};
-
-export const editListTitle = (id, change) => async (dispatch) => {
-  const response = await axios.put(`http://localhost:4200/lists/${id}`, change);
-  if (response.status === 200) {
-    dispatch(listTitleEdited(id, change.title));
-  } else {
-    console.log(response.status, response.message);
-    dispatch(requestFailed);
   }
 };
 
@@ -205,10 +177,10 @@ export const editListItem = (id, changedPart) => async (dispatch, getState) => {
     console.log(response.status, response.message);
   }
 };
-
-export const getCurrentList = (state) => getLists(state).currentList;
+export const getCurrentListSlice = (state) => state.currentList;
+export const getCurrentList = (state) => getCurrentListSlice(state).currentList;
 export const getCurrentListId = (state) => getCurrentList(state).id;
-export const getStatus = (state) => getLists(state).status;
+export const getStatus = (state) => getCurrentListSlice(state).status;
 
 export const selectFilteredList = createSelector(
   getCurrentList,

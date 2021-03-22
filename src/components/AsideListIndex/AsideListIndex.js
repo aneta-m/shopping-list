@@ -2,8 +2,9 @@ import React from "react";
 import List from "../List/List";
 import Button from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { getNoncurrentLists, fetchList } from "../../features/lists/listsSlice";
+import { getNoncurrentLists } from "../../features/lists/listsSlice";
 import { filtersCleared } from "../../features/labels/labelsSlice";
+import { fetchList } from "../../features/currentList/currentListSlice";
 
 const AsideListIndex = () => {
   const lists = useSelector(getNoncurrentLists);

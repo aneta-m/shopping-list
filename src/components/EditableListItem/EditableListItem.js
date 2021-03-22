@@ -6,7 +6,10 @@ import Dropdown from "../Dropdown/Dropdown";
 import LabelsList from "../LabelsList/LabelsList";
 import Label from "../Label/Label";
 import styles from "./EditableListItem.module.scss";
-import { removeListItem, editListItem } from "../../features/lists/listsSlice";
+import {
+  removeListItem,
+  editListItem,
+} from "../../features/currentList/currentListSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
 
 const EditableListItem = ({ labelId, id, text, maxTextLength }) => {

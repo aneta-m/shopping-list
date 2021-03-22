@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 import axios from "axios";
 import {
+  LIST_TITLE_EDITED,
   LIST_ADDED,
   LIST_REMOVED,
   LISTS_LOADING,
@@ -9,7 +10,7 @@ import {
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
 import { IDLE, PROCESSING, FAILED } from "./statusConstants";
-import { getCurrentListId, fetchList } from "./currentListSlice";
+import { getCurrentListId, fetchList, currentListTitleEdited } from "../currentList/currentListSlice";
 
 const initialState = {
   status: IDLE,
@@ -25,8 +26,7 @@ const listsReducer = (state = initialState, action) => {
         lists: {
           ...state.lists,
           [id]: { id, date, title },
-        },
-        // currentList: { id, date, title, list: [] }
+        }
       };
     }
 
@@ -37,6 +37,17 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         lists: newLists,
+      };
+    }
+
+    case LIST_TITLE_EDITED: {
+      const { id, title } = action.payload;
+      return {
+        ...state,
+        lists: {
+          ...state.lists,
+          [id]: { ...state.lists[id], title: title },
+        },
       };
     }
 
@@ -81,6 +92,11 @@ const listsReducer = (state = initialState, action) => {
 export default listsReducer;
 
 //action creators
+
+export const listTitleEdited = (id, title) => ({
+  type: LIST_TITLE_EDITED,
+  payload: { id, title },
+});
 export const listAdded = (listObject) => ({
   type: LIST_ADDED,
   payload: listObject,
@@ -124,6 +140,18 @@ export const removeList = (listId) => async (dispatch) => {
   } else {
     dispatch(requestFailed);
     console.log(response.status, response.message);
+  }
+};
+
+
+export const editListTitle = (id, change) => async (dispatch) => {
+  const response = await axios.put(`http://localhost:4200/lists/${id}`, change);
+  if (response.status === 200) {
+    dispatch(listTitleEdited(id, change.title));
+    dispatch(currentListTitleEdited(change.title));
+  } else {
+    console.log(response.status, response.message);
+    dispatch(requestFailed);
   }
 };
 

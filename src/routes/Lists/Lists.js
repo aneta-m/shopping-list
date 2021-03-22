@@ -7,11 +7,8 @@ import List from "../../components/List/List";
 import Button from "../../components/Button/Button";
 import FlexListItem from "../../components/FlexListItem/FlexListItem";
 import ModalDialog from "../../components/ModalDialog/ModalDialog";
-import {
-  getListsArray,
-  fetchList,
-  removeList,
-} from "../../features/lists/listsSlice";
+import { getListsArray, removeList } from "../../features/lists/listsSlice";
+import { fetchList } from "../../features/currentList/currentListSlice";
 
 const Lists = ({ isMobile }) => {
   const lists = useSelector(getListsArray);

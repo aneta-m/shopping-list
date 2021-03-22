@@ -6,7 +6,7 @@ import Label from "../Label/Label";
 import Dropdown from "../Dropdown/Dropdown";
 import LabelsList from "../LabelsList/LabelsList";
 import styles from "./EmptyListItem.module.scss";
-import { addListItem } from "../../features/lists/listsSlice";
+import { addListItem } from "../../features/currentList/currentListSlice";
 
 const EmptyListItem = ({ maxTextLength }) => {
   const [labelId, setLabelId] = useState(false);
