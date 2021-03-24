@@ -1,17 +1,19 @@
 
-dokończyć podział lists i current list slice, 
-zrobić loadery osobne do wszystkiego
+zrobić dodaj nowy label na edit labels (modal, małe okienko: input: category name, color picker OK Cancel)
 
-ostylować lists na mobile
-dorobić modal na remove
+shopping list jest za wielki
+ShoppingList --> ListView
+
+zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
+
+jeśli loading failed => przekieruj na 404
+jeśli add/remove/edit failed => pokaż modal
+
+zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
+
+w modal dialog dorobić że na enter też jest confirm
+
+toggled filters jest rozbudowane, źle nazwane i w ogóle złe:)
 ___________________________________________________________________________
 
-napisać funkcje (po stronie clienta):
-sort aplhabetically,
-sort by category,
-filter by label,
-
-
-stworzyć add new 
-stworzyć podstronę lists
 

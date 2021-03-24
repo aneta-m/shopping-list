@@ -10,7 +10,7 @@ import {
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
-import { IDLE, PROCESSING, FAILED } from "../lists/statusConstants";
+import { IDLE, PROCESSING, FAILED } from "../status/statusConstants";
 import { selectFilters } from "../labels/labelsSlice";
 
 const initialState = {
@@ -137,7 +137,7 @@ export const fetchList = (id) => async (dispatch) => {
 };
 
 export const addListItem = (item) => async (dispatch, getState) => {
-  const listId = getState().lists.currentList.id;
+  const listId = getState().currentList.currentList.id;
   const response = await axios.post(
     `http://localhost:4200/lists/${listId}`,
     item
@@ -151,7 +151,7 @@ export const addListItem = (item) => async (dispatch, getState) => {
 };
 
 export const removeListItem = (itemId) => async (dispatch, getState) => {
-  const listId = getState().lists.currentList.id;
+  const listId = getState().currentList.currentList.id;
   console.log(listId);
   const response = await axios.delete(
     `http://localhost:4200/lists/${listId}/item/${itemId}`
@@ -165,7 +165,7 @@ export const removeListItem = (itemId) => async (dispatch, getState) => {
 };
 
 export const editListItem = (id, changedPart) => async (dispatch, getState) => {
-  const listId = getState().lists.currentList.id;
+  const listId = getState().currentList.currentList.id;
   const response = await axios.put(
     `http://localhost:4200/lists/${listId}/item/${id}`,
     changedPart

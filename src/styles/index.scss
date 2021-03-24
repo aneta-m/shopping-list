@@ -42,13 +42,19 @@ a {
   margin: 1rem 0;
 }
 
+.px-05 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .py-025 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
 
 .py-1 {
-  padding: 1rem 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .p-1 {

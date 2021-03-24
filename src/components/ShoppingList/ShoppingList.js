@@ -12,6 +12,12 @@ import {
   selectFilteredList,
 } from "../../features/currentList/currentListSlice";
 import { editListTitle } from "../../features/lists/listsSlice";
+import Loader from "../Loader/Loader";
+import {
+  IDLE,
+  FAILED,
+  PROCESSING,
+} from "../../features/status/statusConstants";
 
 const ShoppingList = ({ toggleFilter, isMobile }) => {
   const list = useSelector(getCurrentList);
@@ -40,38 +46,43 @@ const ShoppingList = ({ toggleFilter, isMobile }) => {
     setTitle(list.title);
   }, [list]);
 
-  return status === "idle" && isNotEmpty(list) ? (
-    <div className={styles.shopping_list}>
-      <ListHeader
-        id={list.id}
-        toggleFilter={toggleFilter}
-        isMobile={isMobile}
-        sortingMethod={sortingMethod}
-        onSortingMethodChange={(value) => setSortingMethod(value)}
-      >
-        <EditableText
-          type="heading"
-          text={title ? title : "title"}
-          update={updateListTitle}
-        ></EditableText>
-      </ListHeader>
-      <List>
-        <EmptyListItem maxTextLenth="70" />
-        {sortedList
-          ? sortedList.map((item) => (
-              <EditableListItem
-                key={item.id}
-                id={item.id}
-                text={item.text}
-                labelId={item.labelId}
-                maxTextLength="70"
-              />
-            ))
-          : ""}
-      </List>
-    </div>
-  ) : (
-    <div>{status + " " + isNotEmpty(list)}</div>
+  return (
+    <>
+      {isNotEmpty(list) ? (
+        <div className={styles.shopping_list}>
+          <ListHeader
+            id={list.id}
+            toggleFilter={toggleFilter}
+            isMobile={isMobile}
+            sortingMethod={sortingMethod}
+            onSortingMethodChange={(value) => setSortingMethod(value)}
+          >
+            <EditableText
+              type="heading"
+              text={title ? title : ""}
+              update={updateListTitle}
+            ></EditableText>
+          </ListHeader>
+          <List>
+            <EmptyListItem maxTextLenth="70" />
+            {sortedList
+              ? sortedList.map((item) => (
+                  <EditableListItem
+                    key={item.id}
+                    id={item.id}
+                    text={item.text}
+                    labelId={item.labelId}
+                    maxTextLength="70"
+                  />
+                ))
+              : ""}
+          </List>
+          {status === PROCESSING && <Loader />}
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import styles from "./ModalDialog.module.scss";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 
-const ModalDialog = ({ title, desc, confirmDesc, onConfirm, onClose }) => {
+const ModalDialog = ({ title, confirmDesc, onConfirm, onClose, children }) => {
   const handleConfirm = () => {
     onConfirm();
     onClose();
@@ -12,7 +12,7 @@ const ModalDialog = ({ title, desc, confirmDesc, onConfirm, onClose }) => {
     <Modal onClick={onClose}>
       <div className={styles.modal_dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modal_dialog_title}>{title}</div>
-        <div className={styles.modal_dialog_desc}>{desc}</div>
+        <div className={styles.modal_dialog_content}>{children}</div>
         <div className={styles.modal_dialog_actions}>
           <Button
             className={styles.modal_dialog_btn}

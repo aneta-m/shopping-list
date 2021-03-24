@@ -9,8 +9,13 @@ import {
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
-import { IDLE, PROCESSING, FAILED } from "./statusConstants";
-import { getCurrentListId, fetchList, currentListTitleEdited } from "../currentList/currentListSlice";
+import { IDLE, PROCESSING, FAILED } from "../status/statusConstants";
+import {
+  getCurrentListId,
+  fetchList,
+  currentListTitleEdited,
+  listLoaded
+} from "../currentList/currentListSlice";
 
 const initialState = {
   status: IDLE,
@@ -26,7 +31,7 @@ const listsReducer = (state = initialState, action) => {
         lists: {
           ...state.lists,
           [id]: { id, date, title },
-        }
+        },
       };
     }
 
@@ -66,7 +71,7 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         lists: newLists,
-        listsStatus: IDLE,
+        status: IDLE,
       };
     }
 
@@ -127,6 +132,7 @@ export const addNewList = (listObject) => async (dispatch) => {
   const response = await axios.post("http://localhost:4200/lists", listObject);
   if (response.status === 200) {
     dispatch(listAdded(response.data));
+    dispatch(listLoaded(response.data))
   } else {
     console.error(response.status, response.message);
     dispatch(requestFailed);
@@ -143,11 +149,11 @@ export const removeList = (listId) => async (dispatch) => {
   }
 };
 
-
 export const editListTitle = (id, change) => async (dispatch) => {
   const response = await axios.put(`http://localhost:4200/lists/${id}`, change);
   if (response.status === 200) {
     dispatch(listTitleEdited(id, change.title));
+    console.log(id, change);
     dispatch(currentListTitleEdited(change.title));
   } else {
     console.log(response.status, response.message);

@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require("fs").promises;
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
@@ -24,11 +25,11 @@ const labelsNormalizedPath = path.join(
   ...labelsFilePath.split(/^[a-z0-9\-]/gim)
 );
 
-const generateNextId = (itemsList) => {
-  return itemsList.reduce((max, listItem) => {
-    return Math.max(max, listItem.id) + 1;
-  }, 0);
-};
+// const generateNextId = (itemsList) => {
+//   return itemsList.reduce((max, listItem) => {
+//     return Math.max(max, listItem.id) + 1;
+//   }, 0);
+// };
 
 const readFile = async (normalizedPath) => {
   try {
@@ -61,7 +62,7 @@ app.post("/labels", async (req, res) => {
 
   if (labels) {
     const newLabel = {
-      id: generateNextId(labels),
+      id: uuidv4(),
       ...req.body.data,
     };
     await fs.writeFile(
@@ -79,8 +80,9 @@ app.post("/labels", async (req, res) => {
 //remove label
 app.delete("/labels/:id", async (req, res) => {
   const labels = await readFile(labelsNormalizedPath);
-  const toRemoveId = Number(req.params.id);
+  const toRemoveId = req.params.id;
   const newLabels = labels.filter((label) => label.id !== toRemoveId);
+
   await fs.writeFile(labelsNormalizedPath, JSON.stringify(newLabels));
   return res.status(200).send({
     message: `Label with id ${toRemoveId} has been successfully removed.`,
@@ -92,7 +94,7 @@ app.delete("/labels/:id", async (req, res) => {
 app.put("/labels/:id", async (req, res) => {
   const labels = await readFile(labelsNormalizedPath);
   if (labels) {
-    const toEditId = Number(req.params.id);
+    const toEditId = req.params.id;
     let isItemOnList = false;
     const newLabels = labels.map((label) => {
       if (label.id !== toEditId) {
@@ -137,7 +139,7 @@ app.get("/lists", async (req, res) => {
 app.get("/lists/:id", async (req, res) => {
   const lists = await readFile(listsNormalizedPath);
   if (lists) {
-    const list = lists.find((list) => list.id === Number(req.params.id));
+    const list = lists.find((list) => list.id === req.params.id);
     res.status(200).send(list);
   } else {
     res.status(404).send({
@@ -151,7 +153,7 @@ app.post("/lists", async (req, res) => {
   const lists = await readFile(listsNormalizedPath);
   if (lists) {
     const newList = {
-      id: generateNextId(lists),
+      id: uuidv4(),
       ...req.body,
     };
     const newLists = [...lists, newList];
@@ -168,7 +170,7 @@ app.post("/lists", async (req, res) => {
 app.delete("/lists/:id", async (req, res) => {
   const lists = await readFile(listsNormalizedPath);
   if (lists) {
-    const idToRemove = Number(req.params.id);
+    const idToRemove = req.params.id;
     const newLists = lists.filter((list) => list.id !== idToRemove);
     await fs.writeFile(listsNormalizedPath, JSON.stringify(newLists));
     return res
@@ -188,7 +190,7 @@ app.put("/lists/:id", async (req, res) => {
   const lists = await readFile(listsNormalizedPath);
   console.log(req.body);
   if (lists) {
-    const idToEdit = Number(req.params.id);
+    const idToEdit = req.params.id;
     const newLists = lists.map((list) => {
       return list.id !== idToEdit ? list : { ...list, title: req.body.title };
     });
@@ -212,9 +214,9 @@ app.post("/lists/:id", async (req, res) => {
   if (lists) {
     let newListItem;
     lists.forEach((item) => {
-      if (item.id === Number(req.params.id)) {
+      if (item.id === req.params.id) {
         newListItem = {
-          id: generateNextId(item.list),
+          id: uuidv4(),
           ...req.body,
         };
 
@@ -236,8 +238,8 @@ app.delete("/lists/:id/item/:itemId", async (req, res) => {
   console.log(req.params.id, req.params.itemId);
   const lists = await readFile(listsNormalizedPath);
   if (lists) {
-    const listIdToRemove = Number(req.params.id);
-    const itemIdToRemove = Number(req.params.itemId);
+    const listIdToRemove = req.params.id;
+    const itemIdToRemove = req.params.itemId;
     const newLists = lists.map((listObject) => {
       if (listObject.id === listIdToRemove) {
         const newList = listObject.list.filter(
@@ -262,8 +264,8 @@ app.delete("/lists/:id/item/:itemId", async (req, res) => {
 //body: {data: {propertyName: value}}
 
 app.put("/lists/:id/item/:itemId", async (req, res) => {
-  const listIdToUpdate = Number(req.params.id);
-  const itemIdToUpdate = Number(req.params.itemId);
+  const listIdToUpdate = req.params.id;
+  const itemIdToUpdate = req.params.itemId;
   const itemsUpdatedData = req.body;
   const lists = await readFile(listsNormalizedPath);
   let isItemOnList = false;

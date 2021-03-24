@@ -11,7 +11,7 @@ const CollapsiblePanel = ({ onClose, isClosing, children }) => {
   };
 
   const closePanel = () => {
-    isClosing ? handleClick() : console.log("isNot");
+    isClosing && handleClick();
   };
 
   useEffect(() => closePanel(), [isClosing]);

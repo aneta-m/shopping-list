@@ -9,7 +9,7 @@ import {
   FILTER_REMOVED,
   FILTERS_CLEARED,
 } from "./actionTypes";
-import { IDLE, PROCESSING, FAILED, SUCCEEDED } from "./statusConstants";
+import { IDLE, PROCESSING, FAILED, SUCCEEDED } from "../status/statusConstants";
 import { createSelector } from "reselect";
 
 const initialState = {
@@ -160,7 +160,7 @@ export const addLabel = (label) => async (dispatch) => {
 };
 
 export const removeLabel = (id) => async (dispatch) => {
-  const response = await axios.delete(`http://localhost:4200/labels/:${id}`);
+  const response = await axios.delete(`http://localhost:4200/labels/${id}`);
   if ((response.status = 200)) {
     dispatch(labelRemoved(id));
   } else {

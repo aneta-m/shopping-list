@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Filters.module.scss";
 import List from "../List/List";
 import Label from "../Label/Label";
@@ -7,10 +7,12 @@ import {
   filterAdded,
   filterRemoved,
   filtersCleared,
+  selectLabelsWithCheckStatus,
 } from "../../features/labels/labelsSlice";
 
-const Filters = ({ labels }) => {
+const Filters = () => {
   const dispatch = useDispatch();
+  const labelsWithCheckStatus = useSelector(selectLabelsWithCheckStatus);
   const clearFilters = () => dispatch(filtersCleared);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const Filters = ({ labels }) => {
   return (
     <div className={styles.labels}>
       <List className={styles.labels_list}>
-        {labels.map((label) => (
+        {labelsWithCheckStatus.map((label) => (
           <Label
             colorId={label.id}
             key={label.id}

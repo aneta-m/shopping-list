@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import Page from "./components/Page/Page";
-import Header from "./components/Header/Header";
-import Home from "./routes/Home/Home";
+import Page404 from "./components/Page404/Page404";
 import Lists from "./routes/Lists/Lists";
 import PageErrorModal from "./components/PageErrorModal/PageErrorModal";
 import Footer from "./components/Footer/Footer";
@@ -35,14 +38,17 @@ function App() {
       <Page>
         <Switch>
           <Route path="/" exact>
-            <Home isMobile={isMobile} />
+            <Redirect to="/lists" />
           </Route>
           <Route path="/lists">
             <Lists isMobile={isMobile} />
           </Route>
+          <Route>
+            <Page404 />
+          </Route>
         </Switch>
         <Footer />
-        <PageErrorModal />
+        {/* <PageErrorModal /> */}
       </Page>
     </Router>
   );

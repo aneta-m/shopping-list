@@ -1,61 +1,60 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/Header/Header";
+import Aside from "../../components/Aside/Aside";
 import MobileNav from "../../components/MobileNav/MobileNav";
 import Main from "../../components/Main/Main";
-import List from "../../components/List/List";
-import Button from "../../components/Button/Button";
-import FlexListItem from "../../components/FlexListItem/FlexListItem";
-import ModalDialog from "../../components/ModalDialog/ModalDialog";
-import { getListsArray, removeList } from "../../features/lists/listsSlice";
-import { fetchList } from "../../features/currentList/currentListSlice";
+import ToggledPanels from "../../components/ToggledPanels/ToggledPanels";
+import CollapsiblePanel from "../../components/CollapsiblePanel/CollapsiblePanel";
+import ShoppingList from "../../components/ShoppingList/ShoppingList";
+import ListIndex from "../../components/ListIndex/ListIndex";
 
 const Lists = ({ isMobile }) => {
-  const lists = useSelector(getListsArray);
-  const dispatch = useDispatch();
-  const setCurrentList = (id) => dispatch(fetchList(id));
-  const [confirmRemoveDialogId, setConfirmRemoveDialogId] = useState(false);
+  const [isPanelShown, setIsPanelShown] = useState(false);
+  const [isPanelClosing, setIsPanelClosing] = useState(true);
+
+  const togglePanel = () => {
+    setIsPanelShown((prevState) => !prevState);
+    isPanelClosing &&
+      setIsPanelClosing((prevIsPanelClosing) => !prevIsPanelClosing);
+  };
+
+  const closePanel = () => {
+    setIsPanelClosing((prevIsPanelClosing) => !prevIsPanelClosing);
+    console.log(isPanelClosing);
+  };
+
   return (
     <>
-      <Header isMobile={isMobile} type="lists" />
-      {isMobile && <MobileNav type="lists" />}
-      <Main isMobile={isMobile} type="lists">
-        <h2 className="py-1">Twoje listy</h2>
+      <Header isMobile={isMobile} />
 
-        <List>
-          {lists.map((list) => (
-            <FlexListItem key={list.id}>
-              <Button
-                type="full_width"
-                link
-                to="/"
-                onClick={() => setCurrentList(list.id)}
-              >
-                {list.title}
-              </Button>
-              <Button
-                type="remove"
-                onClick={() => setConfirmRemoveDialogId(list.id)}
-              >
-                &times;
-              </Button>
-            </FlexListItem>
-          ))}
-        </List>
-      </Main>
-      {confirmRemoveDialogId ? (
-        <ModalDialog
-          title="Delete confirmation"
-          desc="Delete this list?"
-          confirmDesc="Delete"
-          onConfirm={() => {
-            dispatch(removeList(confirmRemoveDialogId));
-            setConfirmRemoveDialogId(false);
-          }}
-          onClose={() => setConfirmRemoveDialogId(false)}
-        />
+      {isMobile ? (
+        <MobileNav type="main" toggleFilter={togglePanel} />
       ) : (
-        ""
+        <Aside>
+          <h2 className="py-1">Twoje listy</h2>
+          <ListIndex />
+
+          {isPanelShown && (
+            <CollapsiblePanel
+              onClose={togglePanel}
+              direction="right"
+              isClosing={isPanelClosing}
+            >
+              <ToggledPanels />
+            </CollapsiblePanel>
+          )}
+        </Aside>
+      )}
+      <Main>
+        <ShoppingList
+          isMobile={isMobile}
+          toggleFilter={isPanelShown ? closePanel : togglePanel}
+        />
+      </Main>
+      {isPanelShown && isMobile && (
+        <CollapsiblePanel onClose={togglePanel} direction="left">
+          <ToggledPanels />
+        </CollapsiblePanel>
       )}
     </>
   );
