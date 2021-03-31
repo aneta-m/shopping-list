@@ -13,7 +13,7 @@ const PageErrorModal = () => {
       confirmDesc="OK"
       onConfirm={() => window.location.reload()}
     >
-      "Something went wrong, please refresh and try again in a moment."
+      Something went wrong. Please refresh and try again in a moment.
     </ModalDialog>
   ) : null;
 };

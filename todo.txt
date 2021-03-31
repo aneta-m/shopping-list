@@ -1,4 +1,5 @@
-na Page Error Modal conirmation ma nie byc opcji Cancel, tylko OK - do refresh Page
+
+dodać do app.js (?) wszystkie request statusy - jeśli jest failed to wyświetlić request error modal. po kliknięciu ok ma być reload => wszystkie na idle
 Kiedy jest request error np. przy dodawaniu nowej listy, nei ładują sie też liste w aside - list index (Twoje listy) ? ok?
 
 jeśli loading failed => przekieruj na 404
