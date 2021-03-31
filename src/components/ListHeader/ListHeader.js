@@ -5,36 +5,50 @@ import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import SelectList from "../SelectList/SelectList";
 import ModalDialog from "../ModalDialog/ModalDialog";
+import SmallText from "../SmallText/SmallText";
+import EditableText from "../EditableText/EditableText";
 import { sortOptions } from "../../features/lists/sortOptions";
 import { removeList } from "../../features/lists/listsSlice";
 import {
   selectFilteredLabels,
   filtersCleared,
 } from "../../features/labels/labelsSlice";
+import { editListTitle } from "../../features/lists/listsSlice";
 
 const ListHeader = ({
-  id,
+  listId,
+  listTitle,
   isMobile,
   toggleFilter,
   sortingMethod,
   onSortingMethodChange,
-  children,
 }) => {
-  const [isDropdown, setIsDropdown] = useState(false);
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-  const toggleDropdown = () => setIsDropdown((prevState) => !prevState);
   const dispatch = useDispatch();
   const filteredLabels = useSelector(selectFilteredLabels);
+
+  const [isDropdown, setIsDropdown] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+
+  const toggleDropdown = () => setIsDropdown((prevState) => !prevState);
+  const updateListTitle = (text) =>
+    dispatch(editListTitle(listId, { title: text }));
   const removeListAndClearFiltersAndSorting = () => {
-    dispatch(removeList(id));
+    dispatch(removeList(listId));
     dispatch(filtersCleared());
     onSortingMethodChange(null);
   };
 
+  const closeConfirmDialog = () => {
+    setIsConfirmDialogOpen(false);
+  };
   return (
     <>
       <div className={styles.header}>
-        {children}
+        <EditableText
+          type="heading"
+          text={listTitle ? listTitle : ""}
+          update={updateListTitle}
+        ></EditableText>
 
         <div className={styles.header_btns}>
           {isMobile ? null : (
@@ -72,30 +86,32 @@ const ListHeader = ({
         ) : null}
       </div>
       <div>
-        <div className={styles.small_text}>
-          {sortingMethod
-            ? `Sorted ${
-                sortOptions.find((option) => option.value === sortingMethod)
-                  .name
-              }`
-            : ""}
-        </div>
+        <SmallText className={styles.small_text}>
+          {sortingMethod &&
+            `Sorted ${
+              sortOptions.find((option) => option.value === sortingMethod).name
+            }`}
+        </SmallText>
         {filteredLabels.length > 0 && (
-          <div
+          <SmallText
             className={styles.small_text}
           >{`Filtered categories:${filteredLabels.map(
             (label) => " " + label.title
-          )}`}</div>
+          )}`}</SmallText>
         )}
       </div>
       {isConfirmDialogOpen ? (
         <ModalDialog
           title="Delete confirmation"
-          desc="Delete this list?"
           confirmDesc="Delete"
-          onConfirm={removeListAndClearFiltersAndSorting}
-          onClose={() => setIsConfirmDialogOpen(false)}
-        />
+          onConfirm={() => {
+            removeListAndClearFiltersAndSorting();
+            closeConfirmDialog();
+          }}
+          onClose={closeConfirmDialog}
+        >
+          Delete this list?
+        </ModalDialog>
       ) : (
         ""
       )}

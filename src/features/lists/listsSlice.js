@@ -6,6 +6,7 @@ import {
   LIST_REMOVED,
   LISTS_LOADING,
   LISTS_LOADED,
+  LOADING_FAILED,
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
@@ -14,11 +15,12 @@ import {
   getCurrentListId,
   fetchList,
   currentListTitleEdited,
-  listLoaded
+  listLoaded,
 } from "../currentList/currentListSlice";
 
 const initialState = {
-  status: IDLE,
+  loadingStatus: IDLE,
+  requestStatus: FAILED,
   lists: {},
 };
 
@@ -59,7 +61,7 @@ const listsReducer = (state = initialState, action) => {
     case LISTS_LOADING: {
       return {
         ...state,
-        status: PROCESSING,
+        loadingStatus: PROCESSING,
       };
     }
 
@@ -71,14 +73,22 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         lists: newLists,
-        status: IDLE,
+        loadingStatus: IDLE,
+      };
+    }
+
+    case LOADING_FAILED: {
+      return {
+        ...state,
+        loadingStatus: FAILED,
+        lists: {},
       };
     }
 
     case REQUEST_FAILED: {
       return {
         ...state,
-        status: FAILED,
+        requestStatus: FAILED,
         lists: {},
       };
     }
@@ -86,7 +96,7 @@ const listsReducer = (state = initialState, action) => {
     case REQUEST_SUCCEEDED: {
       return {
         ...state,
-        status: IDLE,
+        requestStatus: IDLE,
       };
     }
     default:
@@ -113,6 +123,7 @@ export const listRemoved = (listId) => ({
 
 export const listsLoading = () => ({ type: LISTS_LOADING });
 export const listsLoaded = (lists) => ({ type: LISTS_LOADED, payload: lists });
+export const loadingFailed = () => ({ type: LOADING_FAILED });
 export const requestFailed = () => ({ type: REQUEST_FAILED });
 export const requestSucceeded = () => ({ type: REQUEST_SUCCEEDED });
 
@@ -124,7 +135,7 @@ export const fetchLists = () => async (dispatch) => {
     dispatch(fetchList(lastId));
     dispatch(listsLoaded(response.data));
   } catch {
-    dispatch(requestFailed());
+    dispatch(loadingFailed());
   }
 };
 
@@ -132,10 +143,10 @@ export const addNewList = (listObject) => async (dispatch) => {
   const response = await axios.post("http://localhost:4200/lists", listObject);
   if (response.status === 200) {
     dispatch(listAdded(response.data));
-    dispatch(listLoaded(response.data))
+    dispatch(listLoaded(response.data));
   } else {
     console.error(response.status, response.message);
-    dispatch(requestFailed);
+    dispatch(requestFailed());
   }
 };
 
@@ -144,7 +155,7 @@ export const removeList = (listId) => async (dispatch) => {
   if (response.status === 200) {
     dispatch(fetchLists());
   } else {
-    dispatch(requestFailed);
+    dispatch(requestFailed());
     console.log(response.status, response.message);
   }
 };
@@ -165,7 +176,8 @@ export const editListTitle = (id, change) => async (dispatch) => {
 // export const selectCurrentListId = (state) => state.lists.currentList.id;
 
 export const getLists = (state) => state.lists;
-export const getStatus = (state) => getLists(state).status;
+export const getLoadingStatus = (state) => getLists(state).loadingStatus;
+export const getRequestStatus = (state) => getLists(state).requestStatus;
 
 export const getListsArray = createSelector(getLists, (lists) =>
   Object.values(lists.lists)

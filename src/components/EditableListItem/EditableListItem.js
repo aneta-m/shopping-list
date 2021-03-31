@@ -53,13 +53,14 @@ const EditableListItem = ({ labelId, id, text, maxTextLength }) => {
       {isConfirmDialogOpen ? (
         <ModalDialog
           title="Delete confirmation"
-          desc="Delete this list?"
           confirmDesc="Delete"
           onConfirm={() => {
             dispatch(removeListItem(id));
           }}
           onClose={() => setIsConfirmDialogOpen(false)}
-        />
+        >
+          Delete this item?
+        </ModalDialog>
       ) : (
         ""
       )}

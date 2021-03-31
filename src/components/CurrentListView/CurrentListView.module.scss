@@ -1,12 +1,12 @@
 @import "../../styles/utilities/module";
 
-.shopping_list {
+.current_list_view {
   padding: 1rem;
   max-width: 550px;
 }
 
 @media (min-width: $mobile-breakpoint) {
-  .shopping_list {
+  .current_list_view {
     border-radius: 10px;
     height: 100%;
     // margin: auto;

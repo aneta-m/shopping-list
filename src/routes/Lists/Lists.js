@@ -5,7 +5,7 @@ import MobileNav from "../../components/MobileNav/MobileNav";
 import Main from "../../components/Main/Main";
 import ToggledPanels from "../../components/ToggledPanels/ToggledPanels";
 import CollapsiblePanel from "../../components/CollapsiblePanel/CollapsiblePanel";
-import ShoppingList from "../../components/ShoppingList/ShoppingList";
+import CurrentListView from "../../components/CurrentListView/CurrentListView";
 import ListIndex from "../../components/ListIndex/ListIndex";
 
 const Lists = ({ isMobile }) => {
@@ -46,7 +46,7 @@ const Lists = ({ isMobile }) => {
         </Aside>
       )}
       <Main>
-        <ShoppingList
+        <CurrentListView
           isMobile={isMobile}
           toggleFilter={isPanelShown ? closePanel : togglePanel}
         />

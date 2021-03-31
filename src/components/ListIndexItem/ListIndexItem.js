@@ -31,14 +31,15 @@ const ListIndexItem = ({ id, title }) => {
       {confirmRemoveDialog ? (
         <ModalDialog
           title="Delete confirmation"
-          desc="Delete this list?"
           confirmDesc="Delete"
           onConfirm={() => {
             dispatch(removeList(id));
             setConfirmRemoveDialog(false);
           }}
           onClose={() => setConfirmRemoveDialog(false)}
-        />
+        >
+          Delete this list?
+        </ModalDialog>
       ) : (
         ""
       )}

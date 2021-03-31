@@ -63,7 +63,7 @@ app.post("/labels", async (req, res) => {
   if (labels) {
     const newLabel = {
       id: uuidv4(),
-      ...req.body.data,
+      ...req.body,
     };
     await fs.writeFile(
       labelsNormalizedPath,

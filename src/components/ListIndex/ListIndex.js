@@ -3,16 +3,20 @@ import List from "../List/List";
 import Loader from "../Loader/Loader";
 import ListIndexItem from "../ListIndexItem/ListIndexItem";
 import { useSelector } from "react-redux";
-import { getNoncurrentLists, getStatus } from "../../features/lists/listsSlice";
+import {
+  getNoncurrentLists,
+  getLoadingStatus,
+} from "../../features/lists/listsSlice";
 import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
 const ListIndex = () => {
   const lists = useSelector(getNoncurrentLists);
-  const listsStatus = useSelector(getStatus);
+  const listsStatus = useSelector(getLoadingStatus);
   return (
     <div>
       {listsStatus === PROCESSING && <Loader />}
-      {listsStatus === FAILED && "failed"}
+      {listsStatus === FAILED &&
+        "Something went wrong, lists can't be loaded. Please try to refresh this website."}
       <List>
         {lists &&
           lists.map((list) => (

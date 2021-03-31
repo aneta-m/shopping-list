@@ -9,8 +9,8 @@ import { useDispatch } from "react-redux";
 import Page from "./components/Page/Page";
 import Page404 from "./components/Page404/Page404";
 import Lists from "./routes/Lists/Lists";
-import PageErrorModal from "./components/PageErrorModal/PageErrorModal";
 import Footer from "./components/Footer/Footer";
+import RequestErrorModal from "./components/RequestErrorModal/RequestErrorModal";
 
 import { fetchLists } from "./features/lists/listsSlice";
 import { fetchLabels } from "./features/labels/labelsSlice";
@@ -48,8 +48,8 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-        {/* <PageErrorModal /> */}
       </Page>
+      <RequestErrorModal />
     </Router>
   );
 }

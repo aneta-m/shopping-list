@@ -3,7 +3,7 @@ import Labels from "../Labels/Labels";
 import ToggledPanel from "../ToggledPanel/ToggledPanel";
 import NewLabelModalDialog from "../NewLabelModalDialog/NewLabelModalDialog";
 const EditLabelsPanel = ({ onToggle }) => {
-  const [isNewLabelDialogOpen, setIsNewLabelDialogOpen] = useState("false");
+  const [isNewLabelDialogOpen, setIsNewLabelDialogOpen] = useState(false);
   const openNewLabelDialog = () => {
     setIsNewLabelDialogOpen(true);
   };

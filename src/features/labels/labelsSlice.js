@@ -28,7 +28,7 @@ const labelsReducer = (state = initialState, action) => {
         ...state,
         labels: {
           ...state.labels,
-          newLabel,
+          [newLabel.id]: newLabel,
         },
       };
     }
