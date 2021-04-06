@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getRequestStatus } from "../../features/lists/listsSlice";
 import { FAILED } from "../../features/status/statusConstants";
 
-const PageErrorModal = () => {
+const RequestErrorModal = () => {
   const requestStatus = useSelector(getRequestStatus);
 
   return requestStatus === FAILED ? (
@@ -18,4 +18,4 @@ const PageErrorModal = () => {
   ) : null;
 };
 
-export default PageErrorModal;
+export default RequestErrorModal;

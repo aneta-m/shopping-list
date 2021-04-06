@@ -8,12 +8,16 @@ import {
   FILTER_ADDED,
   FILTER_REMOVED,
   FILTERS_CLEARED,
+  LOADING_FAILED,
+  REQUEST_FAILED,
+  REQUEST_SUCCEEDED,
 } from "./actionTypes";
 import { IDLE, PROCESSING, FAILED, SUCCEEDED } from "../status/statusConstants";
 import { createSelector } from "reselect";
 
 const initialState = {
-  status: IDLE,
+  requestStatus: IDLE,
+  loadingStatus: IDLE,
   labels: {},
   filteredLabels: [],
 };
@@ -51,7 +55,7 @@ const labelsReducer = (state = initialState, action) => {
     case LABELS_LOADING: {
       return {
         ...state,
-        status: PROCESSING,
+        loadingStatus: PROCESSING,
       };
     }
     case LABELS_LOADED: {
@@ -65,8 +69,29 @@ const labelsReducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        status: IDLE,
+        loadingStatus: IDLE,
         labels: newLabels,
+      };
+    }
+
+    case LOADING_FAILED: {
+      return {
+        ...state,
+        loadingStatus: FAILED,
+      };
+    }
+
+    case REQUEST_FAILED: {
+      return {
+        ...state,
+        requestStatus: FAILED,
+      };
+    }
+
+    case REQUEST_SUCCEEDED: {
+      return {
+        ...state,
+        requestStatus: IDLE,
       };
     }
     case FILTER_ADDED: {
@@ -127,6 +152,10 @@ export const labelsLoaded = (labels) => ({
   type: LABELS_LOADED,
   payload: labels,
 });
+
+export const loadingFailed = () => ({ type: LOADING_FAILED });
+export const requestFailed = () => ({ type: REQUEST_FAILED });
+export const requestSucceeded = () => ({ type: REQUEST_SUCCEEDED });
 
 export const filterAdded = (id) => ({
   type: FILTER_ADDED,

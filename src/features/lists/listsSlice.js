@@ -20,7 +20,7 @@ import {
 
 const initialState = {
   loadingStatus: IDLE,
-  requestStatus: FAILED,
+  requestStatus: IDLE,
   lists: {},
 };
 
