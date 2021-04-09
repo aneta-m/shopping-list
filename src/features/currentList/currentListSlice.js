@@ -7,6 +7,7 @@ import {
   LIST_TITLE_EDITED,
   LIST_LOADING,
   LIST_LOADED,
+  LOADING_FAILED,
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
@@ -14,7 +15,8 @@ import { IDLE, PROCESSING, FAILED } from "../status/statusConstants";
 import { selectFilters } from "../labels/labelsSlice";
 
 const initialState = {
-  status: IDLE,
+  loadingStatus: IDLE,
+  requestStatus: IDLE,
   currentList: {},
 };
 
@@ -71,21 +73,28 @@ const currentListReducer = (state = initialState, action) => {
     case LIST_LOADING: {
       return {
         ...state,
-        status: PROCESSING,
+        loadingStatus: PROCESSING,
       };
     }
     case LIST_LOADED: {
       return {
         ...state,
         currentList: action.payload,
-        status: IDLE,
+        loadingStatus: IDLE,
+      };
+    }
+    case LOADING_FAILED: {
+      return {
+        ...state,
+        loadingStatus: FAILED,
+        lists: {},
       };
     }
 
     case REQUEST_FAILED: {
       return {
         ...state,
-        status: FAILED,
+        requestStatus: FAILED,
         lists: {},
       };
     }
@@ -93,7 +102,7 @@ const currentListReducer = (state = initialState, action) => {
     case REQUEST_SUCCEEDED: {
       return {
         ...state,
-        status: IDLE,
+        requestStatus: IDLE,
       };
     }
     default:
@@ -121,6 +130,7 @@ export const currentListTitleEdited = (title) => ({
 });
 export const listLoading = () => ({ type: LIST_LOADING });
 export const listLoaded = (list) => ({ type: LIST_LOADED, payload: list });
+export const loadingFailed = () => ({ type: LOADING_FAILED });
 export const requestFailed = () => ({ type: REQUEST_FAILED });
 export const requestSucceeded = () => ({ type: REQUEST_SUCCEEDED });
 
@@ -128,11 +138,14 @@ export const requestSucceeded = () => ({ type: REQUEST_SUCCEEDED });
 
 export const fetchList = (id) => async (dispatch) => {
   dispatch(listLoading());
-  const response = await axios.get(`http://localhost:4200/lists/${id}`);
-  if (response.status === 200) {
+  try {
+    const response = await axios.get(`http://localhost:4200/lists/${id}`);
     dispatch(listLoaded(response.data));
-  } else {
-    dispatch(requestFailed());
+  } catch {
+    dispatch(loadingFailed());
+    setTimeout(() => {
+      dispatch(fetchList(id));
+    }, 5000);
   }
 };
 
@@ -180,7 +193,10 @@ export const editListItem = (id, changedPart) => async (dispatch, getState) => {
 export const getCurrentListSlice = (state) => state.currentList;
 export const getCurrentList = (state) => getCurrentListSlice(state).currentList;
 export const getCurrentListId = (state) => getCurrentList(state).id;
-export const getStatus = (state) => getCurrentListSlice(state).status;
+export const getRequestStatus = (state) =>
+  getCurrentListSlice(state).requestStatus;
+export const getLoadingStatus = (state) =>
+  getCurrentListSlice(state).loadingStatus;
 
 export const selectFilteredList = createSelector(
   getCurrentList,

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./CurrentListView.module.scss";
 import List from "../List/List";
 import ListHeader from "../ListHeader/ListHeader";
@@ -8,7 +8,7 @@ import EmptyListItem from "../EmptyListItem/EmptyListItem";
 import SmallText from "../SmallText/SmallText";
 import {
   getCurrentList,
-  getStatus,
+  getLoadingStatus,
   selectFilteredList,
 } from "../../features/currentList/currentListSlice";
 import Loader from "../Loader/Loader";
@@ -16,7 +16,7 @@ import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
 const CurrentListView = ({ toggleFilter, isMobile }) => {
   const list = useSelector(getCurrentList);
-  const listLoadingStatus = useSelector(getStatus);
+  const listLoadingStatus = useSelector(getLoadingStatus);
   const filteredList = useSelector(selectFilteredList);
 
   const [sortingMethod, setSortingMethod] = useState(null);
@@ -65,13 +65,15 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
               </SmallText>
             )}
           </List>
-          {listLoadingStatus === PROCESSING && <Loader />}
-          {listLoadingStatus === FAILED &&
-            "Sorry, something went wrong and this list can't be loaded."}
         </div>
       ) : (
         ""
       )}
+      <div className={styles.current_list_view}>
+        {listLoadingStatus === PROCESSING && <Loader />}
+        {listLoadingStatus === FAILED &&
+          "Sorry, something went wrong and this list can't be loaded."}
+      </div>
     </>
   );
 };

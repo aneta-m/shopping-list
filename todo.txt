@@ -1,9 +1,8 @@
 
-dodać do app.js (?) wszystkie request statusy - jeśli jest failed to wyświetlić request error modal. po kliknięciu ok ma być reload => wszystkie na idle
-Kiedy jest request error np. przy dodawaniu nowej listy, nei ładują sie też liste w aside - list index (Twoje listy) ? ok?
 
-jeśli loading failed => przekieruj na 404
-jeśli add/remove/edit failed => pokaż modal
+jeśli loading failed => odpowiedni komunikat w konkretnym miejscu (jak w currentListView) + ponowienie requestu po 5 sekundach w slice ==>
+porobić w sliceach try-catch, żeby prawidłowo wyłapywać błędy
+
 
 zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 

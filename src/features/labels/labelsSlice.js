@@ -211,7 +211,10 @@ export const editLabel = (id, change) => async (dispatch) => {
 
 //selectors
 
-const selectLabels = (state) => state.labels.labels;
+const selectLabelsSlice = (state) => state.labels;
+const selectLabels = (state) => selectLabelsSlice(state).labels;
+export const getRequestStatus = (state) =>
+  selectLabelsSlice(state).requestStatus;
 export const selectFilters = (state) => state.labels.filteredLabels;
 const selectLabelById = (state, labelId) => selectLabels(state)[labelId];
 
