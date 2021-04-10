@@ -1,22 +1,28 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./CurrentListView.module.scss";
 import List from "../List/List";
 import ListHeader from "../ListHeader/ListHeader";
 import EditableListItem from "../EditableListItem/EditableListItem";
 import EmptyListItem from "../EmptyListItem/EmptyListItem";
 import SmallText from "../SmallText/SmallText";
+import Loader from "../Loader/Loader";
 import {
   getCurrentList,
-  getLoadingStatus,
+  getLoadingStatus as getListsLoadingStatus,
   selectFilteredList,
 } from "../../features/currentList/currentListSlice";
-import Loader from "../Loader/Loader";
+import {
+  getLoadingStatus as getLabelsLoadingStatus,
+  requestFailed as labelsRequestFailed,
+} from "../../features/labels/labelsSlice";
 import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
 const CurrentListView = ({ toggleFilter, isMobile }) => {
+  const dispatch = useDispatch();
   const list = useSelector(getCurrentList);
-  const listLoadingStatus = useSelector(getLoadingStatus);
+  const listLoadingStatus = useSelector(getListsLoadingStatus);
+  const labelsLoadingStatus = useSelector(getLabelsLoadingStatus);
   const filteredList = useSelector(selectFilteredList);
 
   const [sortingMethod, setSortingMethod] = useState(null);
@@ -42,7 +48,11 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
           <ListHeader
             listId={list.id}
             listTitle={list.title}
-            toggleFilter={toggleFilter}
+            toggleFilter={
+              labelsLoadingStatus === FAILED
+                ? () => dispatch(labelsRequestFailed())
+                : toggleFilter
+            }
             isMobile={isMobile}
             sortingMethod={sortingMethod}
             onSortingMethodChange={(value) => setSortingMethod(value)}

@@ -16,7 +16,7 @@ const ListIndex = () => {
     <div>
       {listsStatus === PROCESSING && <Loader />}
       {listsStatus === FAILED &&
-        "Something went wrong, lists can't be loaded. Please try to refresh this website."}
+        "Something went wrong, please try again later."}
       <List>
         {lists &&
           lists.map((list) => (

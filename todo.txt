@@ -10,7 +10,11 @@ zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje fakt
 zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
 
 zrobić żeby na modalu (przynajmniej na tym error request nie działa) enter robił OK
+aside musi mieć prawy padding
 
+currentListView zdecydowanie za bardzo rozbudowany
+
+zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 ___________________________________________________________________________
 
 

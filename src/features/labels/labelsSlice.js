@@ -115,18 +115,6 @@ const labelsReducer = (state = initialState, action) => {
         filteredLabels: [],
       };
     }
-
-    //     case LABEL_FILTERED: {
-    // const id = action.payload;
-    // const newFilteredLabels = [...state.filteredLabels,]
-    // newfilteredLabels.forEach(id, index => {
-    //   if(id === )
-    // })
-    // return {
-    //   ...state,
-    //   filteredLabels: newFilteredLabels
-    // }
-    // }
     default:
       return state;
   }
@@ -175,37 +163,38 @@ export const filtersCleared = () => ({
 
 export const fetchLabels = () => async (dispatch) => {
   dispatch(labelsLoading());
-  const response = await axios.get("http://localhost:4200/labels");
-  dispatch(labelsLoaded(response.data));
+  try {
+    const response = await axios.get("http://localhost:4200/labels");
+    dispatch(labelsLoaded(response.data));
+  } catch {
+    dispatch(loadingFailed());
+  }
 };
 
-export const addLabel = (label) => async (dispatch) => {
-  const response = await axios.post("http://localhost:4200/labels", label);
-  if (response.status === 200) {
+export const addLabel = (label) => async (dispatch, getState) => {
+  try {
+    const response = await axios.post("http://localhost:4200/labels", label);
     dispatch(labelAdded(response.data));
-  } else {
-    console.log(response.status, response.message);
+  } catch {
+    dispatch(requestFailed());
   }
 };
 
 export const removeLabel = (id) => async (dispatch) => {
-  const response = await axios.delete(`http://localhost:4200/labels/${id}`);
-  if ((response.status = 200)) {
+  try {
+    await axios.delete(`http://localhost:4200/labels/${id}`);
     dispatch(labelRemoved(id));
-  } else {
-    console.log("error");
+  } catch {
+    dispatch(requestFailed());
   }
 };
 
 export const editLabel = (id, change) => async (dispatch) => {
-  const response = await axios.put(
-    `http://localhost:4200/labels/${id}`,
-    change
-  );
-  if (response.status === 200) {
+  try {
+    await axios.put(`http://localhost:4200/labels/${id}`, change);
     dispatch(labelEdited(id, change));
-  } else {
-    console.log("error");
+  } catch {
+    dispatch(requestFailed());
   }
 };
 
@@ -215,6 +204,8 @@ const selectLabelsSlice = (state) => state.labels;
 const selectLabels = (state) => selectLabelsSlice(state).labels;
 export const getRequestStatus = (state) =>
   selectLabelsSlice(state).requestStatus;
+export const getLoadingStatus = (state) =>
+  selectLabelsSlice(state).loadingStatus;
 export const selectFilters = (state) => state.labels.filteredLabels;
 const selectLabelById = (state, labelId) => selectLabels(state)[labelId];
 

@@ -140,35 +140,34 @@ export const fetchLists = () => async (dispatch) => {
 };
 
 export const addNewList = (listObject) => async (dispatch) => {
-  const response = await axios.post("http://localhost:4200/lists", listObject);
-  if (response.status === 200) {
+  try {
+    const response = await axios.post(
+      "http://localhost:4200/lists",
+      listObject
+    );
     dispatch(listAdded(response.data));
     dispatch(listLoaded(response.data));
-  } else {
-    console.error(response.status, response.message);
+  } catch {
     dispatch(requestFailed());
   }
 };
 
 export const removeList = (listId) => async (dispatch) => {
-  const response = await axios.delete(`http://localhost:4200/lists/${listId}`);
-  if (response.status === 200) {
+  try {
+    await axios.delete(`http://localhost:4200/lists/${listId}`);
     dispatch(fetchLists());
-  } else {
+  } catch {
     dispatch(requestFailed());
-    console.log(response.status, response.message);
   }
 };
 
 export const editListTitle = (id, change) => async (dispatch) => {
-  const response = await axios.put(`http://localhost:4200/lists/${id}`, change);
-  if (response.status === 200) {
+  try {
+    await axios.put(`http://localhost:4200/lists/${id}`, change);
     dispatch(listTitleEdited(id, change.title));
-    console.log(id, change);
     dispatch(currentListTitleEdited(change.title));
-  } else {
-    console.log(response.status, response.message);
-    dispatch(requestFailed);
+  } catch {
+    dispatch(requestFailed());
   }
 };
 

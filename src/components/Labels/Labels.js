@@ -7,6 +7,7 @@ import { selectLabelValues } from "../../features/labels/labelsSlice";
 
 const Labels = () => {
   const labels = useSelector(selectLabelValues);
+
   return (
     <div>
       <List>
