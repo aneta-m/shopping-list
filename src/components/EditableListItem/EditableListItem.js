@@ -61,9 +61,7 @@ const EditableListItem = ({ labelId, id, text, maxTextLength }) => {
         >
           Delete this item?
         </ModalDialog>
-      ) : (
-        ""
-      )}
+      ) : null}
     </li>
   );
 };

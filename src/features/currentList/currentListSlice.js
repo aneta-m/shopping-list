@@ -140,7 +140,7 @@ export const fetchList = (id) => async (dispatch) => {
   dispatch(listLoading());
   try {
     const response = await axios.get(`http://localhost:4200/lists/${id}`);
-    dispatch(listLoaded(response.data));
+    setTimeout(() => dispatch(listLoaded(response.data)), 500);
   } catch {
     dispatch(loadingFailed());
     setTimeout(() => {
@@ -150,44 +150,35 @@ export const fetchList = (id) => async (dispatch) => {
 };
 
 export const addListItem = (item) => async (dispatch, getState) => {
-  const listId = getState().currentList.currentList.id;
-  const response = await axios.post(
-    `http://localhost:4200/lists/${listId}`,
-    item
-  );
-  if (response.status === 200) {
+  const listId = getCurrentListId(getState());
+  try {
+    const response = await axios.post(
+      `http://localhost:4200/lists/${listId}`,
+      item
+    );
     dispatch(listItemAdded(response.data));
-  } else {
-    dispatch(requestFailed);
-    console.log(response.status, response.message);
+  } catch {
+    dispatch(requestFailed());
   }
 };
 
 export const removeListItem = (itemId) => async (dispatch, getState) => {
-  const listId = getState().currentList.currentList.id;
-  console.log(listId);
-  const response = await axios.delete(
-    `http://localhost:4200/lists/${listId}/item/${itemId}`
-  );
-  if (response.status === 200) {
+  const listId = getCurrentListId(getState());
+  try {
+    await axios.delete(`http://localhost:4200/lists/${listId}/item/${itemId}`);
     dispatch(listItemRemoved(itemId));
-  } else {
-    dispatch(requestFailed);
-    console.log(response.status, response.message);
+  } catch {
+    dispatch(requestFailed());
   }
 };
 
-export const editListItem = (id, changedPart) => async (dispatch, getState) => {
-  const listId = getState().currentList.currentList.id;
-  const response = await axios.put(
-    `http://localhost:4200/lists/${listId}/item/${id}`,
-    changedPart
-  );
-  if (response.status === 200) {
-    dispatch(listItemEdited(id, changedPart));
-  } else {
-    dispatch(requestFailed);
-    console.log(response.status, response.message);
+export const editListItem = (id, change) => async (dispatch, getState) => {
+  const listId = getCurrentListId(getState());
+  try {
+    await axios.put(`http://localhost:4200/lists/${listId}/item/${id}`, change);
+    dispatch(listItemEdited(id, change));
+  } catch {
+    dispatch(requestFailed());
   }
 };
 export const getCurrentListSlice = (state) => state.currentList;

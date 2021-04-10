@@ -36,9 +36,9 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
   const isNotEmpty = (obj) => Object.keys(obj).length;
 
   return (
-    <>
+    <div className={styles.current_list_view}>
       {isNotEmpty(list) ? (
-        <div className={styles.current_list_view}>
+        <>
           <ListHeader
             listId={list.id}
             listTitle={list.title}
@@ -65,16 +65,15 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
               </SmallText>
             )}
           </List>
-        </div>
+        </>
       ) : (
-        ""
+        <>
+          {listLoadingStatus === PROCESSING && <Loader />}
+          {listLoadingStatus === FAILED &&
+            "Sorry, something went wrong and this list can't be loaded."}
+        </>
       )}
-      <div className={styles.current_list_view}>
-        {listLoadingStatus === PROCESSING && <Loader />}
-        {listLoadingStatus === FAILED &&
-          "Sorry, something went wrong and this list can't be loaded."}
-      </div>
-    </>
+    </div>
   );
 };
 

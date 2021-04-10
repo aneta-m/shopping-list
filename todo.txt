@@ -3,11 +3,13 @@
 jeśli loading failed => odpowiedni komunikat w konkretnym miejscu (jak w currentListView) + ponowienie requestu po 5 sekundach w slice ==>
 porobić w sliceach try-catch, żeby prawidłowo wyłapywać błędy
 
+W SYTUACJI GDY LISTA JEST WYFILTROWANA I NIE WYŚWIETLAJĄ SIĘ ŻADNE ELEMENTY Z DANEJ KATEGORII POWINIEN BYĆ INNY NAPIS (A NIE ŻE NIE DODAŁEŚ ŻADNEGO ITEMU DO LISTY!)
 
 zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 
 zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
 
+zrobić żeby na modalu (przynajmniej na tym error request nie działa) enter robił OK
 
 ___________________________________________________________________________
 
