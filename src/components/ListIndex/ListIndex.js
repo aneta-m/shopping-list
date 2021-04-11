@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./ListIndex.module.scss";
 import List from "../List/List";
 import Loader from "../Loader/Loader";
 import ListIndexItem from "../ListIndexItem/ListIndexItem";
@@ -13,10 +14,10 @@ const ListIndex = () => {
   const lists = useSelector(getNoncurrentLists);
   const listsStatus = useSelector(getLoadingStatus);
   return (
-    <div>
+    <div className={styles.list_index}>
       {listsStatus === PROCESSING && <Loader />}
       {listsStatus === FAILED &&
-        "Something went wrong, please try again later."}
+        "Something went wrong, we can't load your lists."}
       <List>
         {lists &&
           lists.map((list) => (

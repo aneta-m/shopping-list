@@ -71,7 +71,7 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
               ))
             ) : (
               <SmallText className="py-1">
-                You have not added any items to this list.
+                There are no items to show.
               </SmallText>
             )}
           </List>

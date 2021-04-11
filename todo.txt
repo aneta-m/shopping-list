@@ -1,20 +1,15 @@
 
-
-jeśli loading failed => odpowiedni komunikat w konkretnym miejscu (jak w currentListView) + ponowienie requestu po 5 sekundach w slice ==>
-porobić w sliceach try-catch, żeby prawidłowo wyłapywać błędy
-
-W SYTUACJI GDY LISTA JEST WYFILTROWANA I NIE WYŚWIETLAJĄ SIĘ ŻADNE ELEMENTY Z DANEJ KATEGORII POWINIEN BYĆ INNY NAPIS (A NIE ŻE NIE DODAŁEŚ ŻADNEGO ITEMU DO LISTY!)
-
+DUŻE:
 zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
-
 zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
+currentListView zdecydowanie za bardzo rozbudowany
+zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 
+MAŁE:
 zrobić żeby na modalu (przynajmniej na tym error request nie działa) enter robił OK
 aside musi mieć prawy padding
-
-currentListView zdecydowanie za bardzo rozbudowany
-
-zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 ___________________________________________________________________________
 
 
+TERAZ:
+robię żeby w mobileNav po kliknięciu hamburgera zadziałała metoda displayLists, która odpali wyjeżdżane listy (listIndex)

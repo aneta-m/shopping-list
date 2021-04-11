@@ -136,6 +136,7 @@ export const fetchLists = () => async (dispatch) => {
     dispatch(listsLoaded(response.data));
   } catch {
     dispatch(loadingFailed());
+    setTimeout(() => dispatch(fetchLists()), 5000);
   }
 };
 
