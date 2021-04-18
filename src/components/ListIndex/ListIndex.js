@@ -10,11 +10,11 @@ import {
 } from "../../features/lists/listsSlice";
 import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
-const ListIndex = () => {
+const ListIndex = ({ className }) => {
   const lists = useSelector(getNoncurrentLists);
   const listsStatus = useSelector(getLoadingStatus);
   return (
-    <div className={styles.list_index}>
+    <div className={`${styles.list_index} ${className}`}>
       {listsStatus === PROCESSING && <Loader />}
       {listsStatus === FAILED &&
         "Something went wrong, we can't load your lists."}

@@ -13,3 +13,5 @@ ___________________________________________________________________________
 
 TERAZ:
 robię żeby w mobileNav po kliknięciu hamburgera zadziałała metoda displayLists, która odpali wyjeżdżane listy (listIndex)
+kliknięcie na jakąś listę powinno powodować zamknięcie collapsible => dodać w lists do listIndex jako parametr metodę na zamknięcie listy
+albo zrobić jakiś collapsible list index...

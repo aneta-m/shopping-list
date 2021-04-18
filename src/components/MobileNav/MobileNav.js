@@ -13,7 +13,7 @@ import {
 } from "../../features/labels/labelsSlice";
 import { FAILED } from "../../features/status/statusConstants";
 
-const MobileNav = ({ type, toggleFilter, displayLists }) => {
+const MobileNav = ({ type, toggleRightPanel, toggleLeftPanel }) => {
   const dispatch = useDispatch();
   const labelsLoadingStatus = useSelector(getLabelsLoadingStatus);
   const listsLoadingStatus = useSelector(getListsLoadingStatus);
@@ -26,31 +26,29 @@ const MobileNav = ({ type, toggleFilter, displayLists }) => {
       <nav className={styles.nav}>
         <div className={styles.nav_side_btns}>
           <Button
-            link
-            to="lists"
             type="large_icon"
             onClick={
               listsLoadingStatus === FAILED
                 ? () => dispatch(listsRequestFailed())
-                : displayLists
+                : toggleLeftPanel
             }
           >
-            <i className="fas fa-hamburger"></i>
+            <i className="fas fa-balance-scale-left"></i>
           </Button>
           <Button
             type="large_icon"
             onClick={
               labelsLoadingStatus === FAILED
                 ? () => dispatch(labelsRequestFailed())
-                : toggleFilter
+                : toggleRightPanel
             }
           >
-            <i className="fas fa-filter"></i>
+            <i className="fas fa-balance-scale-right"></i>
           </Button>
         </div>
         <div className={styles.nav_center}>
           <Button type="xl_icon" onClick={addList}>
-            <i className="fas fa-plus"></i>
+            <i className="fas fa-balance-scale"></i>
           </Button>
         </div>
       </nav>

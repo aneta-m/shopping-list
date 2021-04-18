@@ -9,18 +9,33 @@ import CurrentListView from "../../components/CurrentListView/CurrentListView";
 import ListIndex from "../../components/ListIndex/ListIndex";
 
 const Lists = ({ isMobile }) => {
-  const [isPanelShown, setIsPanelShown] = useState(false);
-  const [isPanelClosing, setIsPanelClosing] = useState(true);
+  const [isRightPanelShown, setIsRightPanelShown] = useState(false);
+  const [isRightPanelClosing, setIsRightPanelClosing] = useState(true);
 
-  const togglePanel = () => {
-    setIsPanelShown((prevState) => !prevState);
-    isPanelClosing &&
-      setIsPanelClosing((prevIsPanelClosing) => !prevIsPanelClosing);
+  const toggleRightPanel = () => {
+    setIsRightPanelShown((prevState) => !prevState);
+    isRightPanelClosing &&
+      setIsRightPanelClosing(
+        (prevIsRightPanelClosing) => !prevIsRightPanelClosing
+      );
   };
 
-  const closePanel = () => {
-    setIsPanelClosing((prevIsPanelClosing) => !prevIsPanelClosing);
-    console.log(isPanelClosing);
+  const closeRightPanel = () => {
+    setIsRightPanelClosing(
+      (prevIsRightPanelClosing) => !prevIsRightPanelClosing
+    );
+  };
+
+  const [isLeftPanelShown, setIsLeftPanelShown] = useState(false);
+  const [isLeftPanelClosing, setIsLeftPanelClosing] = useState(true);
+
+  const toggleLeftPanel = () => {
+    console.log(isLeftPanelShown);
+    setIsLeftPanelShown((prevState) => !prevState);
+    isLeftPanelClosing &&
+      setIsLeftPanelClosing(
+        (prevIsLeftPanelClosing) => !prevIsLeftPanelClosing
+      );
   };
 
   return (
@@ -28,17 +43,21 @@ const Lists = ({ isMobile }) => {
       <Header isMobile={isMobile} />
 
       {isMobile ? (
-        <MobileNav type="main" toggleFilter={togglePanel} />
+        <MobileNav
+          type="main"
+          toggleRightPanel={toggleRightPanel}
+          toggleLeftPanel={toggleLeftPanel}
+        />
       ) : (
         <Aside>
           <h2 className="py-1">Twoje listy</h2>
           <ListIndex />
 
-          {isPanelShown && (
+          {isRightPanelShown && (
             <CollapsiblePanel
-              onClose={togglePanel}
+              onClose={toggleRightPanel}
               direction="right"
-              isClosing={isPanelClosing}
+              isClosing={isRightPanelClosing}
             >
               <ToggledPanels />
             </CollapsiblePanel>
@@ -48,12 +67,18 @@ const Lists = ({ isMobile }) => {
       <Main>
         <CurrentListView
           isMobile={isMobile}
-          toggleFilter={isPanelShown ? closePanel : togglePanel}
+          toggleFilter={isRightPanelShown ? closeRightPanel : toggleRightPanel}
         />
       </Main>
-      {isPanelShown && isMobile && (
-        <CollapsiblePanel onClose={togglePanel} direction="left">
+      {isRightPanelShown && isMobile && (
+        <CollapsiblePanel onClose={toggleRightPanel} direction="right">
           <ToggledPanels />
+        </CollapsiblePanel>
+      )}
+      {isLeftPanelShown && isMobile && (
+        <CollapsiblePanel onClose={toggleLeftPanel} direction="left">
+          <h1>Twoje listy</h1>
+          <ListIndex className="py-1" />
         </CollapsiblePanel>
       )}
     </>
