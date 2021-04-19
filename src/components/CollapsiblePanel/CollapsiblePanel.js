@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import styles from "./CollapsiblePanel.module.scss";
 
-const CollapsiblePanel = ({ onClose, isClosing, children }) => {
-  const [animation, setAnimation] = useState(styles.on_enter);
+const CollapsiblePanel = ({ onClose, isClosing, direction, children }) => {
+  const [animation, setAnimation] = useState(
+    direction === "right" ? styles.on_enter : styles.on_enter__left
+  );
 
   const handleClick = (e) => {
-    setAnimation(styles.on_exit);
+    setAnimation(direction === "right" ? styles.on_exit : styles.on_exit__left);
     setTimeout(onClose, 350);
   };
 

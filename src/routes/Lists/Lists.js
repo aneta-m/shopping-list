@@ -9,20 +9,20 @@ import CurrentListView from "../../components/CurrentListView/CurrentListView";
 import ListIndex from "../../components/ListIndex/ListIndex";
 
 const Lists = ({ isMobile }) => {
-  const [isRightPanelShown, setIsRightPanelShown] = useState(false);
-  const [isRightPanelClosing, setIsRightPanelClosing] = useState(true);
+  const [isFilterPanelShown, setIsFilterPanelShown] = useState(false);
+  const [isFilterPanelClosing, setIsFilterPanelClosing] = useState(true);
 
-  const toggleRightPanel = () => {
-    setIsRightPanelShown((prevState) => !prevState);
-    isRightPanelClosing &&
-      setIsRightPanelClosing(
-        (prevIsRightPanelClosing) => !prevIsRightPanelClosing
+  const toggleFilterPanel = () => {
+    setIsFilterPanelShown((prevState) => !prevState);
+    isFilterPanelClosing &&
+      setIsFilterPanelClosing(
+        (prevIsFilterPanelClosing) => !prevIsFilterPanelClosing
       );
   };
 
-  const closeRightPanel = () => {
-    setIsRightPanelClosing(
-      (prevIsRightPanelClosing) => !prevIsRightPanelClosing
+  const closeFilterPanel = () => {
+    setIsFilterPanelClosing(
+      (prevIsFilterPanelClosing) => !prevIsFilterPanelClosing
     );
   };
 
@@ -45,7 +45,7 @@ const Lists = ({ isMobile }) => {
       {isMobile ? (
         <MobileNav
           type="main"
-          toggleRightPanel={toggleRightPanel}
+          toggleRightPanel={toggleFilterPanel}
           toggleLeftPanel={toggleLeftPanel}
         />
       ) : (
@@ -53,11 +53,11 @@ const Lists = ({ isMobile }) => {
           <h2 className="py-1">Twoje listy</h2>
           <ListIndex />
 
-          {isRightPanelShown && (
+          {isFilterPanelShown && (
             <CollapsiblePanel
-              onClose={toggleRightPanel}
-              direction="right"
-              isClosing={isRightPanelClosing}
+              onClose={toggleFilterPanel}
+              direction="left"
+              isClosing={isFilterPanelClosing}
             >
               <ToggledPanels />
             </CollapsiblePanel>
@@ -67,11 +67,13 @@ const Lists = ({ isMobile }) => {
       <Main>
         <CurrentListView
           isMobile={isMobile}
-          toggleFilter={isRightPanelShown ? closeRightPanel : toggleRightPanel}
+          toggleFilter={
+            isFilterPanelShown ? closeFilterPanel : toggleFilterPanel
+          }
         />
       </Main>
-      {isRightPanelShown && isMobile && (
-        <CollapsiblePanel onClose={toggleRightPanel} direction="right">
+      {isFilterPanelShown && isMobile && (
+        <CollapsiblePanel onClose={toggleFilterPanel} direction="right">
           <ToggledPanels />
         </CollapsiblePanel>
       )}

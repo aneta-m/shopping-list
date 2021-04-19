@@ -23,6 +23,22 @@
     animation-timing-function: ease-in-out;
   }
 
+  &.on_enter__left {
+    left: 0;
+    opacity: 1;
+    animation-name: slide-in-left;
+    animation-duration: 0.35s;
+    animation-timing-function: ease-in-out;
+  }
+
+  &.on_exit__left {
+    left: -100vw;
+    opacity: 0;
+    animation-duration: 0.35s;
+    animation-name: slide-out-left;
+    animation-timing-function: ease-in-out;
+  }
+
   @keyframes slide-in {
     from {
       right: -100vw;
@@ -40,6 +56,27 @@
     }
     to {
       right: -100vw;
+      opacity: 0;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      left: -100vw;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out-left {
+    from {
+      left: 0;
+      opacity: 1;
+    }
+    to {
+      left: -100vw;
       opacity: 0;
     }
   }
@@ -83,7 +120,7 @@
     padding-top: 1rem;
   }
 
-  &.on_enter {
+  &.on_enter__left {
     left: 0;
     opacity: 1;
     animation-name: slide-in;
@@ -91,7 +128,7 @@
     animation-timing-function: ease-in-out;
   }
 
-  &.on_exit {
+  &.on_exit__left {
     left: -100%;
     opacity: 0;
     animation-duration: 0.35s;
