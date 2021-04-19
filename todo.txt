@@ -3,6 +3,7 @@ DUŻE:
 zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
 currentListView zdecydowanie za bardzo rozbudowany
+Lists route za bardzo rozbudowany
 zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 
 MAŁE:

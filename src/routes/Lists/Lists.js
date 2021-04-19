@@ -41,50 +41,61 @@ const Lists = ({ isMobile }) => {
   return (
     <>
       <Header isMobile={isMobile} />
-
       {isMobile ? (
-        <MobileNav
-          type="main"
-          toggleRightPanel={toggleFilterPanel}
-          toggleLeftPanel={toggleLeftPanel}
-        />
-      ) : (
-        <Aside>
-          <h2 className="py-1">Twoje listy</h2>
-          <ListIndex />
-
-          {isFilterPanelShown && (
-            <CollapsiblePanel
-              onClose={toggleFilterPanel}
-              direction="left"
-              isClosing={isFilterPanelClosing}
-            >
+        <>
+          <MobileNav
+            type="main"
+            toggleRightPanel={toggleFilterPanel}
+            toggleLeftPanel={toggleLeftPanel}
+          />
+          <Main>
+            <CurrentListView
+              isMobile={isMobile}
+              toggleFilter={
+                isFilterPanelShown ? closeFilterPanel : toggleFilterPanel
+              }
+            />
+          </Main>
+          {isFilterPanelShown && isMobile && (
+            <CollapsiblePanel onClose={toggleFilterPanel} direction="right">
               <ToggledPanels />
             </CollapsiblePanel>
           )}
-        </Aside>
+          {isLeftPanelShown && isMobile && (
+            <CollapsiblePanel onClose={toggleLeftPanel} direction="left">
+              <h1>Twoje listy</h1>
+              <ListIndex className="py-1" />
+            </CollapsiblePanel>
+          )}
+        </>
+      ) : (
+        <>
+          <Aside>
+            <h2 className="py-1">Twoje listy</h2>
+            <ListIndex />
+
+            {isFilterPanelShown && (
+              <CollapsiblePanel
+                onClose={toggleFilterPanel}
+                direction="left"
+                isClosing={isFilterPanelClosing}
+              >
+                <ToggledPanels />
+              </CollapsiblePanel>
+            )}
+          </Aside>
+          <Main>
+            <CurrentListView
+              isMobile={isMobile}
+              toggleFilter={
+                isFilterPanelShown ? closeFilterPanel : toggleFilterPanel
+              }
+            />
+          </Main>
+        </>
       )}
-      <Main>
-        <CurrentListView
-          isMobile={isMobile}
-          toggleFilter={
-            isFilterPanelShown ? closeFilterPanel : toggleFilterPanel
-          }
-        />
-      </Main>
-      {isFilterPanelShown && isMobile && (
-        <CollapsiblePanel onClose={toggleFilterPanel} direction="right">
-          <ToggledPanels />
-        </CollapsiblePanel>
-      )}
-      {isLeftPanelShown && isMobile && (
-        <CollapsiblePanel onClose={toggleLeftPanel} direction="left">
-          <h1>Twoje listy</h1>
-          <ListIndex className="py-1" />
-        </CollapsiblePanel>
-      )}
+      ;
     </>
   );
 };
-
 export default Lists;
