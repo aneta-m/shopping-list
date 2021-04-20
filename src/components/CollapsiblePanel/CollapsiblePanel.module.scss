@@ -7,8 +7,24 @@
   top: 0;
   z-index: 1;
 
-  &.on_enter {
+  &.on_enter__right {
     right: 0;
+    opacity: 1;
+    animation-name: slide-in-right;
+    animation-duration: 0.35s;
+    animation-timing-function: ease-in-out;
+  }
+
+  &.on_exit__right {
+    right: -100vw;
+    opacity: 0;
+    animation-duration: 0.35s;
+    animation-name: slide-out-right;
+    animation-timing-function: ease-in-out;
+  }
+
+  &.on_enter {
+    left: 0;
     opacity: 1;
     animation-name: slide-in;
     animation-duration: 0.35s;
@@ -16,51 +32,35 @@
   }
 
   &.on_exit {
-    right: -100vw;
+    left: -100vw;
     opacity: 0;
     animation-duration: 0.35s;
     animation-name: slide-out;
     animation-timing-function: ease-in-out;
   }
 
-  &.on_enter__left {
-    left: 0;
-    opacity: 1;
-    animation-name: slide-in-left;
-    animation-duration: 0.35s;
-    animation-timing-function: ease-in-out;
+  @keyframes slide-in-right {
+    from {
+      right: -100vw;
+      opacity: 0;
+    }
+    to {
+      right: 0;
+      opacity: 1;
+    }
   }
-
-  &.on_exit__left {
-    left: -100vw;
-    opacity: 0;
-    animation-duration: 0.35s;
-    animation-name: slide-out-left;
-    animation-timing-function: ease-in-out;
+  @keyframes slide-out-right {
+    from {
+      right: 0;
+      opacity: 1;
+    }
+    to {
+      right: -100vw;
+      opacity: 0;
+    }
   }
 
   @keyframes slide-in {
-    from {
-      right: -100vw;
-      opacity: 0;
-    }
-    to {
-      right: 0;
-      opacity: 1;
-    }
-  }
-  @keyframes slide-out {
-    from {
-      right: 0;
-      opacity: 1;
-    }
-    to {
-      right: -100vw;
-      opacity: 0;
-    }
-  }
-
-  @keyframes slide-in-left {
     from {
       left: -100vw;
       opacity: 0;
@@ -70,7 +70,7 @@
       opacity: 1;
     }
   }
-  @keyframes slide-out-left {
+  @keyframes slide-out {
     from {
       left: 0;
       opacity: 1;
@@ -120,7 +120,7 @@
     padding-top: 1rem;
   }
 
-  &.on_enter__left {
+  &.on_enter {
     left: 0;
     opacity: 1;
     animation-name: slide-in;
@@ -128,7 +128,7 @@
     animation-timing-function: ease-in-out;
   }
 
-  &.on_exit__left {
+  &.on_exit {
     left: -100%;
     opacity: 0;
     animation-duration: 0.35s;

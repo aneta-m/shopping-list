@@ -6,10 +6,14 @@ import { fetchList } from "../../features/currentList/currentListSlice";
 import { removeList } from "../../features/lists/listsSlice";
 import { useDispatch } from "react-redux";
 
-const ListIndexItem = ({ id, title }) => {
+const ListIndexItem = ({ id, title, onItemClick }) => {
   const dispatch = useDispatch();
   const setCurrentList = (id) => dispatch(fetchList(id));
   const [confirmRemoveDialog, setConfirmRemoveDialog] = useState(false);
+  const handleItemClick = () => {
+    setCurrentList(id);
+    onItemClick && onItemClick();
+  };
 
   return (
     <>
@@ -19,7 +23,7 @@ const ListIndexItem = ({ id, title }) => {
             type="full_width"
             link
             to={`/lists/${id}`}
-            onClick={() => setCurrentList(id)}
+            onClick={handleItemClick}
           >
             {title}
           </Button>

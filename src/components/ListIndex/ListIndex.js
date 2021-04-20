@@ -10,7 +10,7 @@ import {
 } from "../../features/lists/listsSlice";
 import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
-const ListIndex = ({ className }) => {
+const ListIndex = ({ className, onItemClick }) => {
   const lists = useSelector(getNoncurrentLists);
   const listsStatus = useSelector(getLoadingStatus);
   return (
@@ -21,7 +21,12 @@ const ListIndex = ({ className }) => {
       <List>
         {lists &&
           lists.map((list) => (
-            <ListIndexItem key={list.id} id={list.id} title={list.title} />
+            <ListIndexItem
+              key={list.id}
+              id={list.id}
+              title={list.title}
+              onItemClick={onItemClick}
+            />
           ))}
       </List>
     </div>

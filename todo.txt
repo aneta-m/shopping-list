@@ -1,18 +1,4 @@
 
 DUŻE:
-zrobić tak, żeby dziaały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
-zrobić żeby wyjeżdżał slider na aside na mobile z lewej strony po hamburgerze i ładował edytowalną listę list
-currentListView zdecydowanie za bardzo rozbudowany
-Lists route za bardzo rozbudowany
+zrobić tak, żeby działały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
-
-MAŁE:
-zrobić żeby na modalu (przynajmniej na tym error request nie działa) enter robił OK
-aside musi mieć prawy padding
-___________________________________________________________________________
-
-
-TERAZ:
-robię żeby w mobileNav po kliknięciu hamburgera zadziałała metoda displayLists, która odpali wyjeżdżane listy (listIndex)
-kliknięcie na jakąś listę powinno powodować zamknięcie collapsible => dodać w lists do listIndex jako parametr metodę na zamknięcie listy
-albo zrobić jakiś collapsible list index...

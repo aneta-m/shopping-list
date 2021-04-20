@@ -1,3 +1,7 @@
-.list_index {
-  padding-right: 1rem;
+@import "../../styles/utilities/module";
+
+@media (min-width: $mobile-breakpoint) {
+  .list_index {
+    padding-right: 1rem;
+  }
 }

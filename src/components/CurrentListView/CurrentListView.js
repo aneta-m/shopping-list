@@ -26,7 +26,6 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
   const filteredList = useSelector(selectFilteredList);
 
   const [sortingMethod, setSortingMethod] = useState(null);
-
   let sortedList = filteredList;
   if (sortingMethod === "1") {
     sortedList = [...filteredList].sort((itemA, itemB) => {
@@ -39,11 +38,9 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
     });
   }
 
-  const isNotEmpty = (obj) => Object.keys(obj).length;
-
   return (
     <div className={styles.current_list_view}>
-      {isNotEmpty(list) ? (
+      {Object.keys(list).length ? (
         <>
           <ListHeader
             listId={list.id}

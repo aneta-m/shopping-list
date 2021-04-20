@@ -4,11 +4,13 @@ import styles from "./CollapsiblePanel.module.scss";
 
 const CollapsiblePanel = ({ onClose, isClosing, direction, children }) => {
   const [animation, setAnimation] = useState(
-    direction === "right" ? styles.on_enter : styles.on_enter__left
+    direction === "right" ? styles.on_enter__right : styles.on_enter
   );
 
   const handleClick = (e) => {
-    setAnimation(direction === "right" ? styles.on_exit : styles.on_exit__left);
+    setAnimation(
+      direction === "right" ? styles.on_exit__right : styles.on_exit
+    );
     setTimeout(onClose, 350);
   };
 

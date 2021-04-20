@@ -27,6 +27,11 @@ const ModalDialog = ({ title, confirmDesc, onConfirm, onClose, children }) => {
     return () => window.removeEventListener("keyup", handleEscape);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("keyup", handleEnter);
+    return () => window.removeEventListener("keyup", handleEnter);
+  }, []);
+
   return (
     <Modal onClick={onClose}>
       <div

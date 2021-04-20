@@ -40,7 +40,10 @@ function App() {
           <Route path="/" exact>
             <Redirect to="/lists" />
           </Route>
-          <Route path="/lists">
+          <Route path="/lists/" exact>
+            <Lists isMobile={isMobile} />
+          </Route>
+          <Route path="/lists/:id">
             <Lists isMobile={isMobile} />
           </Route>
           <Route>
