@@ -14,7 +14,6 @@ import RequestErrorModal from "./components/RequestErrorModal/RequestErrorModal"
 
 import { fetchLists } from "./features/lists/listsSlice";
 import { fetchLabels } from "./features/labels/labelsSlice";
-
 import { useWindowResize } from "./hooks/useWindowResize";
 
 function App() {
@@ -41,9 +40,6 @@ function App() {
             <Redirect to="/lists" />
           </Route>
           <Route path="/lists/" exact>
-            <Lists isMobile={isMobile} />
-          </Route>
-          <Route path="/lists/:id">
             <Lists isMobile={isMobile} />
           </Route>
           <Route>

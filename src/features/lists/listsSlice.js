@@ -131,8 +131,8 @@ export const fetchLists = () => async (dispatch) => {
   dispatch(listsLoading());
   try {
     const response = await axios.get("http://localhost:4200/lists");
-    const lastId = response.data[response.data.length - 1].id;
-    dispatch(fetchList(lastId));
+    // const lastId = response.data[response.data.length - 1].id;
+    // dispatch(fetchList(lastId));
     dispatch(listsLoaded(response.data));
   } catch {
     dispatch(loadingFailed());
@@ -178,6 +178,10 @@ export const editListTitle = (id, change) => async (dispatch) => {
 export const getLists = (state) => state.lists;
 export const getLoadingStatus = (state) => getLists(state).loadingStatus;
 export const getRequestStatus = (state) => getLists(state).requestStatus;
+export const getLastListId = (state) => {
+  const ids = Object.keys(getLists(state));
+  // get last item id
+};
 
 export const getListsArray = createSelector(getLists, (lists) =>
   Object.values(lists.lists)
