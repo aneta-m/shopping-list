@@ -18,3 +18,4 @@ fetch list (:id)
 setCurrentList
 
 1. utworzyć w listsSlice selector na last id << teraz robię
+ W lists bierze undefined jako lastLiasId - nie aktualizuje później, tylko bierze zanim załaduje

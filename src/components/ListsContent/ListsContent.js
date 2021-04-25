@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import MobileListsContent from "../MobileListsContent/MobileListsContent";
 import DesktopListsContent from "../DesktopListsContent/DesktopListsContent";
+import { useParams } from "react-router-dom";
 
 const ListsContent = ({ isMobile }) => {
+  const { id } = useParams();
+  console.log(id);
   const [isFilterPanelShown, setIsFilterPanelShown] = useState(false);
   const [isFilterPanelClosing, setIsFilterPanelClosing] = useState(true);
   const toggleFilterPanel = () => {
