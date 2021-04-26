@@ -9,6 +9,7 @@ const Nav = ({ type }) => {
   const handleClick = () => {
     const newList = { date: new Date(), title: "New shopping list", list: [] };
     dispatch(addNewList(newList));
+    window.location.href = "/lists";
   };
 
   return type === "lists" ? (

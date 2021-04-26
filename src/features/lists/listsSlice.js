@@ -10,7 +10,7 @@ import {
   REQUEST_FAILED,
   REQUEST_SUCCEEDED,
 } from "./actionTypes";
-import { IDLE, PROCESSING, FAILED } from "../status/statusConstants";
+import { IDLE, PROCESSING, FAILED, SUCCEEDED } from "../status/statusConstants";
 import {
   getCurrentListId,
   fetchList,
@@ -73,7 +73,7 @@ const listsReducer = (state = initialState, action) => {
       return {
         ...state,
         lists: newLists,
-        loadingStatus: IDLE,
+        loadingStatus: SUCCEEDED,
       };
     }
 
@@ -156,7 +156,7 @@ export const addNewList = (listObject) => async (dispatch) => {
 export const removeList = (listId) => async (dispatch) => {
   try {
     await axios.delete(`http://localhost:4200/lists/${listId}`);
-    dispatch(fetchLists());
+    dispatch(listRemoved(listId));
   } catch {
     dispatch(requestFailed());
   }
@@ -183,11 +183,21 @@ export const getListsArray = createSelector(getLists, (lists) =>
   Object.values(lists.lists)
 );
 
-export const getLastListId = createSelector(getListsArray, (listsArray) => {
-  if (listsArray.length) {
-    return listsArray[listsArray.length - 1].id;
+export const getListsIds = createSelector(getLists, (lists) =>
+  Object.keys(lists.lists)
+);
+
+export const getLastListId = createSelector(
+  getListsArray,
+  getLoadingStatus,
+  (listsArray, status) => {
+    if (listsArray.length) {
+      return listsArray[listsArray.length - 1].id;
+    } else {
+      return "";
+    }
   }
-});
+);
 
 export const getNoncurrentLists = createSelector(
   getListsArray,

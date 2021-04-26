@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header";
-import ListsContent from "../../components/ListsContent/ListsContent";
+import ListRoute from "./ListRoute";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-  useRouteMatch,
 } from "react-router-dom";
 import { getLastListId } from "../../features/lists/listsSlice";
 
 const Lists = ({ isMobile }) => {
   const lastListId = useSelector(getLastListId);
-  console.log(lastListId);
-  const { url } = useRouteMatch();
-  console.log(url);
   return (
     <>
       <Header isMobile={isMobile} />
@@ -25,7 +21,7 @@ const Lists = ({ isMobile }) => {
         </Route>
         <Route
           path={`/lists/:id`}
-          children={<ListsContent isMobile={isMobile} />}
+          children={<ListRoute isMobile={isMobile} />}
         />
       </Switch>
     </>

@@ -24,7 +24,6 @@ const CurrentListView = ({ toggleFilter, isMobile }) => {
   const listLoadingStatus = useSelector(getListsLoadingStatus);
   const labelsLoadingStatus = useSelector(getLabelsLoadingStatus);
   const filteredList = useSelector(selectFilteredList);
-
   const [sortingMethod, setSortingMethod] = useState(null);
   let sortedList = filteredList;
   if (sortingMethod === "1") {

@@ -13,7 +13,11 @@ import {
   selectFilteredLabels,
   filtersCleared,
 } from "../../features/labels/labelsSlice";
-import { editListTitle } from "../../features/lists/listsSlice";
+import { editListTitle, getListsIds } from "../../features/lists/listsSlice";
+import {
+  getCurrentListId,
+  fetchList,
+} from "../../features/currentList/currentListSlice";
 
 const ListHeader = ({
   listId,
@@ -25,6 +29,9 @@ const ListHeader = ({
 }) => {
   const dispatch = useDispatch();
   const filteredLabels = useSelector(selectFilteredLabels);
+  const listsIds = useSelector(getListsIds);
+  console.log(listsIds);
+  const currentListId = useSelector(getCurrentListId);
 
   const [isDropdown, setIsDropdown] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
@@ -40,6 +47,17 @@ const ListHeader = ({
 
   const closeConfirmDialog = () => {
     setIsConfirmDialogOpen(false);
+  };
+
+  const handleRemove = () => {
+    closeConfirmDialog();
+    const lastListId = listsIds[listsIds.length - 1];
+    if (lastListId === currentListId) {
+      window.location.href = `/lists/${listsIds[listsIds.length - 2]}`;
+    } else {
+      window.location.href = `/lists/${lastListId}`;
+    }
+    removeListAndClearFiltersAndSorting();
   };
   return (
     <>
@@ -104,10 +122,7 @@ const ListHeader = ({
         <ModalDialog
           title="Delete confirmation"
           confirmDesc="Delete"
-          onConfirm={() => {
-            removeListAndClearFiltersAndSorting();
-            closeConfirmDialog();
-          }}
+          onConfirm={handleRemove}
           onClose={closeConfirmDialog}
         >
           Delete this list?

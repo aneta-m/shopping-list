@@ -3,9 +3,6 @@ DUŻE:
 zrobić tak, żeby działały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 
-
-/
-
 Lists -> 
 if /lists/ => 
 get state (list of all lists), findLastId => listsSlice - useSelector(getLastId)
@@ -17,5 +14,11 @@ else:
 fetch list (:id)
 setCurrentList
 
+ Po zmianie listy powinno być dispatchowane clear filters
+
 1. utworzyć w listsSlice selector na last id << teraz robię
- W lists bierze undefined jako lastLiasId - nie aktualizuje później, tylko bierze zanim załaduje
+useHistory ->> history.push zamiast window.location.href w listHeader
+
+2. nie wpisywać na sztywno nzwy lists w roucie tylko uselocation
+
+3. co jeśli lista jest pusta ? dodać nową listę
