@@ -10,7 +10,7 @@ const ListRoute = ({ isMobile }) => {
 
   useEffect(() => {
     dispatch(fetchList(id));
-  }, []);
+  }, [id]);
 
   return <ListsContent isMobile={isMobile} />;
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styles from "./ListHeader.module.scss";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
@@ -28,6 +29,7 @@ const ListHeader = ({
   onSortingMethodChange,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const filteredLabels = useSelector(selectFilteredLabels);
   const listsIds = useSelector(getListsIds);
   console.log(listsIds);
@@ -53,9 +55,9 @@ const ListHeader = ({
     closeConfirmDialog();
     const lastListId = listsIds[listsIds.length - 1];
     if (lastListId === currentListId) {
-      window.location.href = `/lists/${listsIds[listsIds.length - 2]}`;
+      history.push(`/lists/${listsIds[listsIds.length - 2]}`);
     } else {
-      window.location.href = `/lists/${lastListId}`;
+      history.push(`/lists/${lastListId}`);
     }
     removeListAndClearFiltersAndSorting();
   };
