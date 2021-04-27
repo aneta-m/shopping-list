@@ -1,17 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import Button from "../Button/Button";
 import styles from "./Nav.module.scss";
-import { addNewList } from "../../features/lists/listsSlice";
+import useAddNewList from "../../hooks/lists/useAddNewList";
 
 const Nav = ({ type }) => {
-  const dispatch = useDispatch();
-  const handleClick = () => {
-    const newList = { date: new Date(), title: "New shopping list", list: [] };
-    dispatch(addNewList(newList));
-    window.location.href = "/lists";
-  };
-
+  const handleClick = useAddNewList();
   return type === "lists" ? (
     <nav className={styles.nav}>
       <Button link to="/" onClick={handleClick}>

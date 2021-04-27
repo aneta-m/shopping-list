@@ -7,20 +7,22 @@ import {
   Switch,
   Route,
   Redirect,
+  useRouteMatch,
 } from "react-router-dom";
 import { getLastListId } from "../../features/lists/listsSlice";
 
 const Lists = ({ isMobile }) => {
   const lastListId = useSelector(getLastListId);
+  const routePath = useRouteMatch().path;
   return (
     <>
       <Header isMobile={isMobile} />
       <Switch>
-        <Route path="/lists" exact>
-          <Redirect to={`/lists/${lastListId}`} />
+        <Route path={routePath} exact>
+          <Redirect to={`${routePath}${lastListId}`} />
         </Route>
         <Route
-          path={`/lists/:id`}
+          path={`${routePath}:id`}
           children={<ListRoute isMobile={isMobile} />}
         />
       </Switch>

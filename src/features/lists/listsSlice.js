@@ -147,7 +147,7 @@ export const addNewList = (listObject) => async (dispatch) => {
       listObject
     );
     dispatch(listAdded(response.data));
-    dispatch(listLoaded(response.data));
+    return response.data.id;
   } catch {
     dispatch(requestFailed());
   }

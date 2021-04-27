@@ -32,7 +32,6 @@ const ListHeader = ({
   const history = useHistory();
   const filteredLabels = useSelector(selectFilteredLabels);
   const listsIds = useSelector(getListsIds);
-  console.log(listsIds);
   const currentListId = useSelector(getCurrentListId);
 
   const [isDropdown, setIsDropdown] = useState(false);

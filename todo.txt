@@ -16,9 +16,7 @@ setCurrentList
 
  Po zmianie listy powinno być dispatchowane clear filters
 
-1. 
-useHistory ->> history.push zamiast window.location.href w listHeader << to już mam, teraz zmienić tak samo add new i NAJPIERW sprawdzić, czy nie renderuje się za kazdym razem (dodałam use effect w currentListView)
 
-2. nie wpisywać na sztywno nzwy lists w roucie tylko uselocation
+3. co jeśli lista list jest pusta ? dodać nową listę
 
-3. co jeśli lista jest pusta ? dodać nową listę
+4. co jeśli jest lists/nieistniejące id => jakieś przekierowanie w list route
