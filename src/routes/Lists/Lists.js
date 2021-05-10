@@ -9,11 +9,26 @@ import {
   Redirect,
   useRouteMatch,
 } from "react-router-dom";
-import { getLastListId } from "../../features/lists/listsSlice";
+import {
+  getLastListId,
+  getListsArray,
+  getLoadingStatus as getListsLoadingStatus,
+} from "../../features/lists/listsSlice";
+import useAddNewList from "../../hooks/lists/useAddNewList";
+import { SUCCEEDED } from "../../features/status/statusConstants";
 
 const Lists = ({ isMobile }) => {
+  const lists = useSelector(getListsArray);
+  const listsLoadingStatus = useSelector(getListsLoadingStatus);
   const lastListId = useSelector(getLastListId);
+  const addList = useAddNewList();
   const routePath = useRouteMatch().path;
+  useEffect(() => {
+    if (listsLoadingStatus === SUCCEEDED && lists.length === 0) {
+      console.log("tu");
+      addList();
+    }
+  }, [listsLoadingStatus]);
   return (
     <>
       <Header isMobile={isMobile} />

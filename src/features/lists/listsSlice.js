@@ -131,9 +131,8 @@ export const fetchLists = () => async (dispatch) => {
   dispatch(listsLoading());
   try {
     const response = await axios.get("http://localhost:4200/lists");
-    // const lastId = response.data[response.data.length - 1].id;
-    // dispatch(fetchList(lastId));
     dispatch(listsLoaded(response.data));
+    return response.data;
   } catch {
     dispatch(loadingFailed());
     setTimeout(() => dispatch(fetchLists()), 5000);

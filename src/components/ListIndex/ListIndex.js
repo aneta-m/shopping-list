@@ -5,13 +5,13 @@ import Loader from "../Loader/Loader";
 import ListIndexItem from "../ListIndexItem/ListIndexItem";
 import { useSelector } from "react-redux";
 import {
-  getNoncurrentLists,
+  getListsArray,
   getLoadingStatus,
 } from "../../features/lists/listsSlice";
 import { PROCESSING, FAILED } from "../../features/status/statusConstants";
 
 const ListIndex = ({ className, onItemClick }) => {
-  const lists = useSelector(getNoncurrentLists);
+  const lists = useSelector(getListsArray);
   const listsStatus = useSelector(getLoadingStatus);
   return (
     <div className={`${styles.list_index} ${className}`}>

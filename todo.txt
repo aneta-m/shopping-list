@@ -1,22 +1,6 @@
 
 DUŻE:
-zrobić tak, żeby działały prawidłowo ścieżki - numer id listy pokazuje faktycznie tę listę
 zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
-
-Lists -> 
-if /lists/ => 
-get state (list of all lists), findLastId => listsSlice - useSelector(getLastId)
-redirect lists/firstId
-
-else:
-/lists/id
-=> ListsContent => 
-fetch list (:id)
-setCurrentList
 
  Po zmianie listy powinno być dispatchowane clear filters
 
-
-3. co jeśli lista list jest pusta ? dodać nową listę
-
-4. co jeśli jest lists/nieistniejące id => jakieś przekierowanie w list route

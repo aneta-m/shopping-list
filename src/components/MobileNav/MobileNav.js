@@ -3,7 +3,6 @@ import styles from "./MobileNav.module.scss";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addNewList,
   getLoadingStatus as getListsLoadingStatus,
   requestFailed as listsRequestFailed,
 } from "../../features/lists/listsSlice";
@@ -12,15 +11,13 @@ import {
   requestFailed as labelsRequestFailed,
 } from "../../features/labels/labelsSlice";
 import { FAILED } from "../../features/status/statusConstants";
+import useAddNewList from "../../hooks/lists/useAddNewList";
 
 const MobileNav = ({ type, toggleRightPanel, toggleLeftPanel }) => {
   const dispatch = useDispatch();
   const labelsLoadingStatus = useSelector(getLabelsLoadingStatus);
   const listsLoadingStatus = useSelector(getListsLoadingStatus);
-  const addList = () => {
-    const newList = { date: new Date(), title: "New shopping list", list: [] };
-    dispatch(addNewList(newList));
-  };
+  const addList = useAddNewList();
   return type === "main" ? (
     <>
       <nav className={styles.nav}>
@@ -33,7 +30,7 @@ const MobileNav = ({ type, toggleRightPanel, toggleLeftPanel }) => {
                 : toggleLeftPanel
             }
           >
-            <i className="fas fa-balance-scale-left"></i>
+            <i className="fas fa-list"></i>
           </Button>
           <Button
             type="large_icon"
@@ -43,12 +40,12 @@ const MobileNav = ({ type, toggleRightPanel, toggleLeftPanel }) => {
                 : toggleRightPanel
             }
           >
-            <i className="fas fa-balance-scale-right"></i>
+            <i className="fas fa-filter"></i>
           </Button>
         </div>
         <div className={styles.nav_center}>
           <Button type="xl_icon" onClick={addList}>
-            <i className="fas fa-balance-scale"></i>
+            <i className="fas fa-plus"></i>
           </Button>
         </div>
       </nav>

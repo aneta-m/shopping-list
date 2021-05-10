@@ -140,6 +140,7 @@ export const fetchList = (id) => async (dispatch) => {
   dispatch(listLoading());
   try {
     const response = await axios.get(`http://localhost:4200/lists/${id}`);
+    console.log(response.data);
     setTimeout(() => dispatch(listLoaded(response.data)), 500);
   } catch {
     dispatch(loadingFailed());
@@ -193,8 +194,6 @@ export const selectFilteredList = createSelector(
   getCurrentList,
   selectFilters,
   (currentList, filters) => {
-    console.log(currentList, filters);
-
     return currentList.list && filters.length > 0
       ? currentList.list.filter((item) =>
           filters.some((filterId) => filterId === item.labelId)
