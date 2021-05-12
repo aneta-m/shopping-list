@@ -2,5 +2,5 @@
 DUŻE:
 zrobić tak, żeby nie dało się zmienić koloru labela w sytuacji kiedy jest label loading status failed (jakiś check w currentList slice przy edit albo add new = > request failed?)
 
- Po zmianie listy powinno być dispatchowane clear filters
+ Po zmianie listy powinno być dispatchowane clear filters ?
 
